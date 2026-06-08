@@ -1,0 +1,22 @@
+{
+  "name": "Cafe a Dois - 40 Dias",
+  "short_name": "Cafe a Dois",
+  "description": "App devocional para casais - 40 dias de desafios diarios",
+  "start_url": "/cafe-a-dois/",
+  "display": "standalone",
+  "background_color": "#fdf6ee",
+  "theme_color": "#7b3f00",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hot%20beverage/3D/hot_beverage_3d.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hot%20beverage/3D/hot_beverage_3d.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
