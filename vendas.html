@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe a Dois - Pagina de Vendas</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#fff;color:#333}
+.hero{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;text-align:center;padding:60px 20px}
+.hero h1{font-size:2.8rem;font-weight:800;line-height:1.2;margin-bottom:16px}
+.hero p{font-size:1.2rem;opacity:.9;max-width:600px;margin:0 auto 30px}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:30px;padding:8px 24px;font-size:.9rem;margin-bottom:20px}
+.book-img{font-size:100px;margin-bottom:20px}
+.btn-primary{display:inline-block;background:white;color:#7b3f00;padding:16px 40px;border-radius:50px;font-size:1.2rem;font-weight:800;text-decoration:none;margin-top:10px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.section{padding:60px 20px;max-width:800px;margin:0 auto}
+.section h2{font-size:2rem;color:#7b3f00;margin-bottom:20px;text-align:center}
+.section p{font-size:1.05rem;line-height:1.8;color:#555;margin-bottom:16px;text-align:center}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:30px}
+.feature-card{background:#fdf6ee;border-radius:16px;padding:24px;text-align:center;border:2px solid #f0d8b8}
+.feature-card .icon{font-size:40px;margin-bottom:12px}
+.feature-card h3{color:#7b3f00;font-size:1.1rem;margin-bottom:8px}
+.feature-card p{font-size:.9rem;color:#666;line-height:1.5}
+.days-preview{background:#fdf6ee;padding:40px 20px}
+.days-preview h2{text-align:center;font-size:1.8rem;color:#7b3f00;margin-bottom:30px}
+.day-list{max-width:700px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.day-item{background:white;border-radius:12px;padding:14px 18px;border-left:4px solid #c47c32;display:flex;align-items:center;gap:12px}
+.day-num{background:#7b3f00;color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.day-title{font-size:.9rem;color:#3a2e1e;font-weight:600}
+.testimonials{padding:60px 20px;background:white}
+.testimonials h2{text-align:center;font-size:1.8rem;color:#7b3f00;margin-bottom:30px}
+.testimonial-grid{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.testimonial{background:#fdf6ee;border-radius:16px;padding:20px;border:1px solid #f0d8b8}
+.testimonial .stars{color:#f0a500;font-size:1.2rem;margin-bottom:8px}
+.testimonial p{font-size:.9rem;color:#555;line-height:1.6;font-style:italic;margin-bottom:12px}
+.testimonial .author{font-size:.85rem;color:#7b3f00;font-weight:700}
+.cta-section{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;text-align:center;padding:60px 20px}
+.cta-section h2{font-size:2.2rem;margin-bottom:16px}
+.cta-section p{font-size:1.1rem;opacity:.9;max-width:500px;margin:0 auto 30px}
+.price-box{display:inline-block;background:rgba(255,255,255,.15);border-radius:20px;padding:20px 40px;margin-bottom:24px}
+.price-box .old-price{font-size:1rem;opacity:.7;text-decoration:line-through}
+.price-box .price{font-size:3rem;font-weight:800;line-height:1}
+.price-box .period{font-size:.9rem;opacity:.8}
+.btn-buy{display:inline-block;background:white;color:#7b3f00;padding:18px 50px;border-radius:50px;font-size:1.3rem;font-weight:800;text-decoration:none;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.guarantee{margin-top:20px;font-size:.9rem;opacity:.8}
+.app-badge{background:rgba(255,255,255,.1);border-radius:12px;padding:12px 20px;display:inline-block;margin:10px;font-size:.9rem}
+footer{background:#3a2e1e;color:#c0a888;text-align:center;padding:30px 20px;font-size:.9rem}
+@media(max-width:600px){.hero h1{font-size:2rem}.price-box .price{font-size:2.2rem}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="book-img">☕</div>
+  <div class="badge">NOVO LANCAMENTO 2026</div>
+  <h1>Cafe a Dois</h1>
+  <p>40 dias de devocionais e desafios praticos para casais que querem um amor mais profundo, real e transformador.</p>
+  <a href="#comprar" class="btn-primary">QUERO COMECAR AGORA</a>
+</div>
+
+<div class="section">
+  <h2>Para o Casal que Quer Mais</h2>
+  <p>Todo casal comeca com uma chama. Mas o dia a dia pode fazer essa chama diminuir. Este livro foi criado para reaviva-la.</p>
+  <p>Ao longo de 40 dias, voce e seu conjuge vao parar, respirar e se reconectar com Deus e um com o outro. Cada dia traz um versiculo, uma reflexao, um desafio pratico e uma oracao para fazerem juntos.</p>
+  <p><strong>Nao precisa de muito tempo. Precisa de intencao.</strong></p>
+  <div class="features">
+    <div class="feature-card"><div class="icon">📖</div><h3>40 Devocionais</h3><p>Um para cada dia, com versiculo biblico, reflexao profunda e aplicacao pratica</p></div>
+    <div class="feature-card"><div class="icon">💪</div><h3>Desafios Diarios</h3><p>Acoes concretas e simples para fortalecer o amor no dia a dia</p></div>
+    <div class="feature-card"><div class="icon">🙏</div><h3>Oracoes Conjuntas</h3><p>Oracao especifica para cada dia, para fazerem juntos em casal</p></div>
+    <div class="feature-card"><div class="icon">📱</div><h3>App Gratuito</h3><p>App PWA incluso: acompanhe o progresso e receba lembretes diarios</p></div>
+  </div>
+</div>
+
+<div class="days-preview">
+  <h2>Os 40 Dias — Previa dos Temas</h2>
+  <div class="day-list">
+    <div class="day-item"><span class="day-num">1</span><span class="day-title">O Amor E uma Decisao</span></div>
+    <div class="day-item"><span class="day-num">2</span><span class="day-title">Presenca de Verdade</span></div>
+    <div class="day-item"><span class="day-num">3</span><span class="day-title">Palavras que Constroem</span></div>
+    <div class="day-item"><span class="day-num">4</span><span class="day-title">O Perigo da Rotina</span></div>
+    <div class="day-item"><span class="day-num">5</span><span class="day-title">Perdao: O Remedio Mais Dificil</span></div>
+    <div class="day-item"><span class="day-num">7</span><span class="day-title">Descanso Juntos</span></div>
+    <div class="day-item"><span class="day-num">10</span><span class="day-title">O Dom da Amizade</span></div>
+    <div class="day-item"><span class="day-num">14</span><span class="day-title">Duas Semanas: Pausa para Celebrar</span></div>
+    <div class="day-item"><span class="day-num">20</span><span class="day-title">Metade do Caminho</span></div>
+    <div class="day-item"><span class="day-num">22</span><span class="day-title">Fe Compartilhada</span></div>
+    <div class="day-item"><span class="day-num">34</span><span class="day-title">Cumplicidade</span></div>
+    <div class="day-item"><span class="day-num">40</span><span class="day-title">O Comeco de Tudo</span></div>
+  </div>
+</div>
+
+<div class="testimonials">
+  <h2>O que Casais Estao Dizendo</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Fizemos juntos e foi transformador. O dia do perdao (dia 5) foi o mais dificil e o mais poderoso. Recomendo para todo casal!"</p><div class="author">Carlos e Ana - Sao Paulo, SP</div></div>
+    <div class="testimonial"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"O app com os lembretes fez toda a diferenca. Nunca esquecemos de fazer o desafio do dia. Em 40 dias, nosso casamento mudou."</p><div class="author">Marcos e Julia - Belo Horizonte, MG</div></div>
+    <div class="testimonial"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Comprei sem esperar muito e fui surpreendida. Linguagem direta, desafios possiveis, reflexoes profundas. Vale muito!"</p><div class="author">Patricia e Roberto - Curitiba, PR</div></div>
+  </div>
+</div>
+
+<div class="cta-section" id="comprar">
+  <h2>Comece os 40 Dias Hoje</h2>
+  <p>Ebook + App PWA gratuito. Acesso imediato. Leia em qualquer dispositivo.</p>
+  <div class="price-box">
+    <div class="old-price">De R$ 39,90</div>
+    <div class="price">R$ 14,90</div>
+    <div class="period">pagamento unico - acesso vitalicio</div>
+  </div>
+  <br>
+  <a href="https://www.amazon.com.br/dp/SEUCADIGO" class="btn-buy">COMPRAR NA AMAZON KINDLE</a>
+  <div class="guarantee">Garantia de 7 dias — devolucao sem perguntas</div>
+  <br><br>
+  <p>Tambem inclui acesso ao app gratuito:</p>
+  <div class="app-badge">Acesse em: amandarssbelomi-lang.github.io/cafe-a-dois</div>
+</div>
+
+<footer>
+  <p>Cafe a Dois &copy; 2026 — Todos os direitos reservados</p>
+  <p style="margin-top:8px;opacity:.6">Ebook para casais cristãos | 40 dias de devocionais e desafios</p>
+</footer>
+</body>
+</html>
