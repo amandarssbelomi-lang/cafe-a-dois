@@ -1,303 +1,192 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#7b3f00">
-<title>Cafe a Dois - 40 Dias</title>
-<link rel="manifest" href="manifest.json">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:#fdf6ee;color:#3a2e1e;min-height:100vh}
-#login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px;background:linear-gradient(135deg,#7b3f00,#c47c32)}
-#login-screen h1{color:white;font-size:2.2rem;margin:16px 0 8px;text-align:center}
-#login-screen p{color:rgba(255,255,255,.85);text-align:center;margin-bottom:30px}
-.login-icon{font-size:64px}
-.login-card{background:white;border-radius:20px;padding:28px;width:100%;max-width:380px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
-.login-card h3{color:#7b3f00;margin-bottom:20px;text-align:center;font-size:1.1rem}
-.input-group{margin-bottom:16px}
-.input-group label{display:block;font-size:.85rem;color:#7b3f00;font-weight:600;margin-bottom:6px}
-.input-group input{width:100%;padding:12px 16px;border:2px solid #f0d8b8;border-radius:10px;font-size:1rem;outline:none;transition:border .2s}
-.input-group input:focus{border-color:#c47c32}
-.start-btn{width:100%;background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;border:none;padding:14px;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:8px}
-.start-btn:hover{opacity:.9}
-#app-screen{display:none}
-.app-header{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;text-align:center;padding:24px 20px 36px}
-.couple-names{font-size:1rem;opacity:.9;margin-bottom:4px}
-.app-header h1{font-size:1.8rem;font-weight:700}
-.subtitle{font-size:.85rem;opacity:.8;margin-top:4px}
-.progress-section{background:white;margin:-18px 16px 16px;border-radius:16px;padding:16px 18px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
-.progress-info{display:flex;justify-content:space-between;font-size:.82rem;color:#7b3f00;font-weight:600;margin-bottom:8px}
-.progress-bar{background:#f0e0c8;border-radius:20px;height:12px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,#7b3f00,#c47c32);border-radius:20px;transition:width .5s ease;width:0%}
-.notif-btn{display:block;width:calc(100% - 32px);margin:0 16px 16px;background:#fff3e0;border:2px dashed #c47c32;color:#7b3f00;padding:12px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;text-align:center}
-.today-section{padding:0 16px 10px}
-.today-card{background:white;border-radius:20px;padding:22px;box-shadow:0 4px 20px rgba(123,63,0,.12);border-left:5px solid #c47c32}
-.today-badge{display:inline-block;background:#fff3e0;color:#7b3f00;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:1px}
-.today-card h2{font-size:1.2rem;color:#7b3f00;margin-bottom:12px}
-.verse-box{background:#fff8f0;border-left:3px solid #c47c32;padding:10px 14px;border-radius:0 10px 10px 0;font-style:italic;font-size:.88rem;color:#5a3a1a;margin-bottom:12px}
-.reflection{font-size:.9rem;line-height:1.7;color:#4a3728;margin-bottom:14px}
-.challenge-box,.prayer-box{border-radius:12px;padding:12px 14px;margin-bottom:10px}
-.challenge-box{background:#fdf6ee;border:1px solid #f0d0a0}
-.prayer-box{background:#f0f8f0;border:1px solid #d4e8d0}
-.challenge-box h4{color:#7b3f00;font-size:.82rem;margin-bottom:5px}
-.prayer-box h4{color:#2d6a35;font-size:.82rem;margin-bottom:5px}
-.challenge-box p,.prayer-box p{font-size:.86rem;line-height:1.6;color:#4a3728}
-.complete-btn{width:100%;background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;border:none;padding:13px;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s}
-.complete-btn:hover{opacity:.9;transform:translateY(-1px)}
-.complete-btn.done{background:linear-gradient(135deg,#2d6a35,#4caf50)}
-.complete-btn:disabled{background:#a8d5a2;cursor:default;transform:none}
-.days-grid-section{padding:10px 16px 30px}
-.section-title{font-size:1rem;color:#7b3f00;margin-bottom:14px;font-weight:700}
-.days-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.day-cell{aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;cursor:pointer;transition:all .2s;border:2px solid transparent}
-.day-cell.completed{background:linear-gradient(135deg,#2d6a35,#4caf50);color:white;box-shadow:0 3px 10px rgba(76,175,80,.3)}
-.day-cell.today{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;box-shadow:0 3px 15px rgba(196,124,50,.5);animation:pulse 2s infinite}
-.day-cell.locked{background:#f0e8de;color:#c0a888;cursor:default}
-.day-cell.available{background:#fff3e0;color:#7b3f00;border-color:#c47c32}
-.day-cell:not(.locked):hover{transform:scale(1.06)}
-.day-cell .day-num{font-size:.95rem}
-.day-cell .day-icon{font-size:.75rem;margin-top:2px}
-@keyframes pulse{0%,100%{box-shadow:0 3px 10px rgba(196,124,50,.4)}50%{box-shadow:0 3px 20px rgba(196,124,50,.8)}}
-.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.65);z-index:1000;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto}
-.modal-overlay.active{display:flex}
-.modal{background:white;border-radius:20px;padding:22px;max-width:460px;width:100%;margin:auto;position:relative}
-.modal-close{position:absolute;top:12px;right:12px;background:#f0e8de;border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;color:#7b3f00;font-weight:700}
-.modal-badge{display:inline-block;background:#fff3e0;color:#7b3f00;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:1px}
-.modal h2{font-size:1.15rem;color:#7b3f00;margin-bottom:12px}
-.all-done-banner{background:linear-gradient(135deg,#2d6a35,#4caf50);color:white;text-align:center;padding:24px;border-radius:16px;margin:0 16px 16px}
-.all-done-banner h2{font-size:1.4rem;margin-bottom:8px}
-.all-done-banner p{font-size:.9rem;opacity:.9;line-height:1.6}
-.streak-badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:6px 16px;font-size:.85rem;font-weight:700;margin-top:12px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7b3f00">
+  <meta name="description" content="Café a Dois — 40 dias de desafios diários para fortalecer e renovar o seu casamento.">
+  <meta property="og:title" content="Café a Dois — 40 Dias para um Amor que Transforma">
+  <meta property="og:description" content="40 dias de desafios, reflexões e orações para casais que querem crescer juntos.">
+  <meta property="og:type" content="website">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Café a Dois">
+  <title>Café a Dois — 40 Dias</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',sans-serif;background:#fdf6ee;color:#3a2e1e;min-height:100vh}
+    #login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px;background:linear-gradient(135deg,#7b3f00,#c47c32)}
+    #login-screen h1{color:white;font-size:2.2rem;margin:16px 0 8px;text-align:center}
+    #login-screen p{color:rgba(255,255,255,.85);text-align:center;margin-bottom:30px}
+    .login-icon{font-size:64px}
+    .login-card{background:white;border-radius:20px;padding:28px;width:100%;max-width:380px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+    .login-card h3{color:#7b3f00;margin-bottom:20px;text-align:center;font-size:1.1rem}
+    .input-group{margin-bottom:16px}
+    .input-group label{display:block;font-size:.85rem;color:#7b3f00;font-weight:600;margin-bottom:6px}
+    .input-group input{width:100%;padding:10px 14px;border:1.5px solid #e0c9a6;border-radius:10px;font-size:1rem;outline:none}
+    .input-group input:focus{border-color:#7b3f00}
+    .start-btn{width:100%;padding:13px;background:#7b3f00;color:white;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:6px}
+    .start-btn:hover{background:#9a5010}
+    #app-screen{display:none;max-width:480px;margin:0 auto;padding:0 0 40px}
+    .app-header{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;padding:24px 20px 20px;text-align:center}
+    .couple-names{font-size:.9rem;opacity:.85;margin-bottom:4px;letter-spacing:1px}
+    .app-header h1{font-size:1.8rem;font-weight:800;letter-spacing:1px}
+    .subtitle{font-size:.85rem;opacity:.8;margin-top:4px}
+    .progress-bar-wrap{background:white;padding:14px 20px;border-bottom:1px solid #f0d8b0}
+    .progress-labels{display:flex;justify-content:space-between;font-size:.8rem;color:#7b3f00;margin-bottom:6px;font-weight:600}
+    .progress-bar{background:#f0d8b0;border-radius:10px;height:8px;overflow:hidden}
+    .progress-fill{background:linear-gradient(90deg,#7b3f00,#c47c32);height:100%;border-radius:10px;transition:width .5s ease}
+    .notif-btn{padding:10px;background:#f0fbf0;border:1.5px dashed #5a9a5a;border-radius:10px;color:#3a7a3a;font-size:.85rem;cursor:pointer;margin:12px 20px 0;width:calc(100% - 40px);display:block}
+    .main-content{padding:20px}
+    .today-badge{display:inline-block;background:#fff3e0;color:#7b3f00;font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:1px}
+    .today-card{background:white;border-radius:16px;padding:18px;box-shadow:0 2px 12px rgba(123,63,0,.08);border:1px solid #f0d8b0}
+    .today-card h2{font-size:1.2rem;color:#7b3f00;margin-bottom:12px}
+    .verse-box{background:#fff8f0;border-left:3px solid #c47c32;padding:10px 14px;border-radius:0 10px 10px 0;font-style:italic;font-size:.88rem;color:#5a3a1a;margin-bottom:12px}
+    .reflection{font-size:.9rem;line-height:1.7;color:#4a3728;margin-bottom:14px}
+    .challenge-box,.prayer-box{border-radius:12px;padding:12px 14px;margin-bottom:10px}
+    .challenge-box{background:#fdf6ee;border:1px solid #f0d0a0}
+    .prayer-box{background:#f0f8f0;border:1px solid #d4e8d0}
+    .challenge-box h4{color:#7b3f00;font-size:.82rem;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+    .prayer-box h4{color:#3a6a3a;font-size:.82rem;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+    .challenge-box p,.prayer-box p{font-size:.88rem;line-height:1.6}
+    .complete-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;border:none;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:6px}
+    .complete-btn.done{background:linear-gradient(135deg,#3a7a3a,#5a9a5a);cursor:default}
+    .section-title{font-size:1rem;font-weight:700;color:#7b3f00;margin:24px 0 12px}
+    .days-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+    .day-cell{aspect-ratio:1;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;cursor:pointer;background:#f0e8dc;color:#a08060}
+    .day-cell.done{background:linear-gradient(135deg,#3a7a3a,#5aaa5a);color:white}
+    .day-cell.today{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white}
+    .day-cell.locked{opacity:.5;cursor:not-allowed}
+    .day-cell .day-num{font-size:1rem}
+    .day-cell .day-icon{font-size:.85rem}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:flex-end}
+    .modal-overlay.active{display:flex}
+    .modal{background:white;border-radius:24px 24px 0 0;padding:24px 20px;width:100%;max-height:85vh;overflow-y:auto}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .modal-header h3{color:#7b3f00;font-size:1.1rem}
+    .close-btn{background:#f0e8dc;border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:1rem}
+    .modal-complete-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;border:none;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px}
+    .modal-complete-btn.done{background:linear-gradient(135deg,#3a7a3a,#5a9a5a)}
+    .all-done-card{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;border-radius:16px;padding:24px;text-align:center;margin-bottom:20px}
+    .all-done-card h2{font-size:1.4rem;margin:10px 0 8px}
+    .all-done-card p{font-size:.9rem;opacity:.9}
+  </style>
 </head>
 <body>
 <div id="login-screen">
   <div class="login-icon">☕</div>
-  <h1>Cafe a Dois</h1>
+  <h1>Café a Dois</h1>
   <p>40 Dias para um Amor que Transforma</p>
   <div class="login-card">
     <h3>Quem vai fazer o desafio?</h3>
-    <div class="input-group"><label>Nome do Marido</label><input type="text" id="name1" placeholder="Ex: Carlos" maxlength="20"></div>
-    <div class="input-group"><label>Nome da Esposa</label><input type="text" id="name2" placeholder="Ex: Ana" maxlength="20"></div>
-    <button class="start-btn" onclick="startChallenge()">Comecar o Desafio!</button>
+    <div class="input-group"><label>Nome dele</label><input type="text" id="name1" placeholder="Ex: Carlos" maxlength="20"></div>
+    <div class="input-group"><label>Nome dela</label><input type="text" id="name2" placeholder="Ex: Ana" maxlength="20"></div>
+    <button class="start-btn" onclick="startChallenge()">Começar o Desafio! ☕</button>
   </div>
 </div>
 <div id="app-screen">
   <header class="app-header">
     <div class="couple-names" id="couple-names"></div>
-    <h1>Cafe a Dois</h1>
+    <h1>Café a Dois</h1>
     <p class="subtitle">40 Dias para um Amor que Transforma</p>
   </header>
-  <div class="progress-section">
-    <div class="progress-info"><span id="progress-text">0 de 40 dias concluidos</span><span id="progress-pct">0%</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-bar-wrap">
+    <div class="progress-labels"><span id="progress-text">0 de 40 dias concluídos</span><span id="progress-pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
-  <button class="notif-btn" id="notif-btn" onclick="requestNotif()">Ativar lembretes diarios</button>
-  <div class="today-section" id="today-section">
-    <div class="today-card" id="today-card">
-      <div class="today-badge">DESAFIO DE HOJE</div>
-      <h2 id="today-title"></h2>
-      <div class="verse-box" id="today-verse"></div>
-      <div class="reflection" id="today-reflection"></div>
-      <div class="challenge-box"><h4>Desafio do Dia</h4><p id="today-challenge"></p></div>
-      <div class="prayer-box"><h4>Oracao</h4><p id="today-prayer"></p></div>
-      <button class="complete-btn" id="complete-btn" onclick="completeToday()">Marcar como Concluido</button>
-    </div>
-  </div>
-  <div class="days-grid-section">
-    <h3 class="section-title">Todos os 40 Dias</h3>
+  <button class="notif-btn" id="notif-btn" onclick="requestNotif()">🔔 Ativar lembretes diários</button>
+  <div class="main-content">
+    <div class="today-badge">DESAFIO DE HOJE</div>
+    <div class="today-card" id="today-card"></div>
+    <p class="section-title">Todos os 40 Dias</p>
     <div class="days-grid" id="days-grid"></div>
   </div>
 </div>
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-  <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">X</button>
-    <div class="modal-badge" id="modal-badge"></div>
-    <h2 id="modal-title"></h2>
-    <div class="verse-box" id="modal-verse"></div>
-    <div class="reflection" id="modal-reflection"></div>
-    <div class="challenge-box"><h4>Desafio do Dia</h4><p id="modal-challenge"></p></div>
-    <div class="prayer-box"><h4>Oracao</h4><p id="modal-prayer"></p></div>
-    <button class="complete-btn" id="modal-complete-btn"></button>
-  </div>
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-content"></div>
 </div>
 <script>
-const days=[{day:1,title:"O Amor e uma Decisao",verse:'"Nao amemos de palavra nem de lingua, mas em acoes e em verdade." - 1 Joao 3:18',reflection:"Muita gente espera sentir vontade de amar para depois agir. Mas o amor que dura nao espera a vontade chegar. Ele age primeiro, e o sentimento vem depois. Seu casamento nao vai crescer sozinho esperando que as coisas melhorem.",challenge:"Olhe nos olhos do seu conjuge e diga uma coisa especifica que voce admira nele(a). Algo real, que voce observou nos ultimos dias.",prayer:"Senhor, nos ajuda a escolher o amor todos os dias, mesmo quando e dificil. Que nossas acoes falem mais alto que nossas palavras. Amen."},
-{day:2,title:"Presenca de Verdade",verse:'"Esteja pronto para ouvir, mas seja tardio para falar." - Tiago 1:19',reflection:"Estar no mesmo comodo nao e o mesmo que estar presente. Voce pode estar sentado ao lado do seu conjuge olhando para o celular e estar completamente ausente. Presenca de verdade e olho no olho, corpo virado, ouvido aberto.",challenge:"Por 15 minutos hoje, guardem os celulares, desliguem a TV e so conversem. Pode ser sobre qualquer coisa.",prayer:"Deus, nos ensina a estar verdadeiramente presentes um para o outro. Que nossa atencao seja um ato de amor. Amen."},
-{day:3,title:"Palavras que Constroem",verse:'"Palavra dita a seu tempo, como e boa!" - Proverbios 15:23',reflection:"Palavras tem peso. Uma critica na pressa de uma manha ruim pode ficar na cabeca do seu conjuge o dia inteiro. Uma palavra de encorajamento dita na hora certa pode mudar o dia de alguem.",challenge:"Mande uma mensagem para seu conjuge durante o dia. Nao sobre tarefas - so para dizer que voce esta pensando nele(a) e que e grato(a).",prayer:"Senhor, guarda as nossas bocas. Que as nossas palavras sejam instrumento de cura e nao de ferida. Amen."},
-{day:4,title:"O Perigo da Rotina",verse:'"Lembra-te de onde caiste, arrepende-te e volta as primeiras obras." - Apocalipse 2:5',reflection:"A rotina pode ser perigosa. Quando o casamento vira so logistica, ele perde a graca. A solucao nao e uma viagem cara. E reintroduzir pequenos momentos de conexao no dia a dia.",challenge:"Facam juntos algo simples que faziam no comeco do relacionamento - preparar um cafe juntos, ouvir uma musica especial, ou olhar fotos antigas.",prayer:"Senhor, nos ajuda a nao deixar o automatico engolir o nosso amor. Amen."},
-{day:5,title:"Perdao: O Remedio Mais Dificil",verse:'"Sede bondosos e compassivos, perdoando-vos mutuamente." - Efesios 4:32',reflection:"Perdoar nao significa fingir que nao doeu. Significa decidir nao deixar a magoa ser maior que o amor. Perdoar e um ato de coragem, nao de fraqueza.",challenge:"Se ha algo guardado que ainda pesa, ore sozinho primeiro. Depois, no momento certo, diga ao seu conjuge: 'Eu te perdoo por [algo especifico], e quero seguir em frente com voce.'",prayer:"Pai, o perdao e dificil. Mas Tu nos perdoaste primeiro. Nos da a forca para soltar o que machucou e recomear. Amen."},
-{day:6,title:"Aprender a Pedir Desculpas",verse:'"Confessai os vossos pecados uns aos outros." - Tiago 5:16',reflection:"Pedir desculpa de verdade: reconhecer o erro, assumir a responsabilidade e comprometer-se com mudanca. Sem 'mas', sem justificativas, sem transferir culpa.",challenge:"Pense em uma coisa que voce fez que sabe que magoou seu conjuge. Peca desculpa hoje, de forma simples e sincera.",prayer:"Deus, nos da humildade para reconhecer nossos erros sem orgulho. Amen."},
-{day:7,title:"Descanso Juntos",verse:'"Assim Ele o da ao seu amado enquanto dorme." - Salmos 127:2',reflection:"Casais que nao descansam juntos tendem a viver em paralelo, cada um no seu cansaco, sem se encontrar de verdade. Descansar juntos e pausar intencionalmente, sem agenda.",challenge:"Organizem um momento hoje - pode ser uma hora apenas - onde nao ha tarefas. Sem compromisso, sem tela. So voces dois.",prayer:"Senhor, nos ensina a descansar sem culpa. Que o nosso descanso nos aproxime um do outro. Amen."},
-{day:8,title:"Voce Me Ve?",verse:'"Encorajai-vos uns aos outros e edificai-vos uns aos outros." - 1 Tessalonicenses 5:11',reflection:"Uma das necessidades mais profundas do ser humano e ser visto. Seu conjuge precisa saber que voce o(a) nota, que percebe o esforco, que enxerga alem das falhas.",challenge:"Observe seu conjuge hoje com atencao. Note algo que ele(a) fez bem. E verbalize: 'Eu percebi que voce... e isso me faz admirar voce.'",prayer:"Pai, nos abre os olhos para enxergar o melhor um no outro. Amen."},
-{day:9,title:"Financas e Casamento",verse:'"Onde esta o teu tesouro, ai estara tambem o teu coracao." - Mateus 6:21',reflection:"Dinheiro e uma das maiores fontes de conflito em casamentos - nao porque e mau, mas porque revela valores. Conversar sobre financas nao e briga. E alinhamento.",challenge:"Sentem juntos por 20 minutos: 'Qual e o nosso maior sonho financeiro como casal?' Sem cobranças - so conversa.",prayer:"Senhor, que possamos ser administradores fieis do que Tu nos deste. Amen."},
-{day:10,title:"O Dom da Amizade",verse:'"Um amigo ama em todo tempo." - Proverbios 17:17',reflection:"Os casamentos mais solidos cultivaram uma amizade genuina. Casais que sao amigos se divertem juntos e se procuram nas situacoes dificeis. Voce e seu conjuge sao amigos de verdade?",challenge:"Facam algo que fariam com um bom amigo: contem uma piada interna, relembrem uma historia engracada, ou simplesmente riam juntos.",prayer:"Deus, obrigado por nos dar um ao outro como companheiros. Amen."},
-{day:11,title:"Respeito em Publico e em Privado",verse:'"Honrai a todos." - 1 Pedro 2:17',reflection:"A forma como voce fala do seu conjuge quando ele(a) nao esta presente revela o nivel de respeito que voce tem. O respeito e defender e honrar o nome do seu conjuge onde quer que voce esteja.",challenge:"Se sentir vontade de reclamar do conjuge para outra pessoa, transforme isso em oracao. Hoje, diga algo positivo sobre ele(a) para alguem.",prayer:"Pai, que o nosso respeito um pelo outro nao dependa de como estamos nos sentindo. Amen."},
-{day:12,title:"Intimidade Alem do Fisico",verse:'"E os dois serao uma so carne." - Genesis 2:24',reflection:"A intimidade conjugal vai alem do fisico. E saber os medos secretos do outro, compartilhar os sonhos. Quando a intimidade emocional esta bem, o resto do casamento flui melhor.",challenge:"Compartilhe algo com seu conjuge que voce raramente conta - um medo, um sonho, uma inseguranca. Depois, ouca o dele(a) com atencao e sem julgamento.",prayer:"Senhor, cria entre nos um espaco seguro onde possamos ser quem somos sem medo. Amen."},
-{day:13,title:"Brigar Bem",verse:'"Irai-vos, e nao pequeis; nao se ponha o sol sobre a vossa ira." - Efesios 4:26',reflection:"Todo casal briga. O problema nao e o conflito em si - e a forma de resolver. Sem xingamentos, sem trazer o passado, sem gritar para ganhar. O objetivo nao e vencer a briga - e resolver o problema juntos.",challenge:"Conversem sobre as 'regras' de como querem lidar com conflitos. Cada um diz uma coisa que considera importante durante uma briga.",prayer:"Deus, nos da sabedoria para resolver conflitos com amor. Amen."},
-{day:14,title:"Duas Semanas: Pausa para Celebrar",verse:'"Alegrai-vos sempre no Senhor." - Filipenses 4:4',reflection:"Voce chegou ate o Dia 14. Escolher o seu casamento todo dia, em meio a uma vida agitada, e um ato de amor. Celebracoes sao importantes - elas marcam o tempo e criam memorias.",challenge:"Celebrem as duas semanas juntos. Um jantar simples, uma sobremesa especial. O importante e pausar e dizer: 'Estamos fazendo isso juntos, e isso importa.'",prayer:"Pai, obrigado por estas duas semanas. Obrigado por um conjuge que escolhe esta jornada comigo. Amen."},
-{day:15,title:"O Poder do Toque",verse:'"Que a sua mao esquerda esteja debaixo da minha cabeca, e a sua direita me abrace." - Cantares 2:6',reflection:"O toque fisico - um abraco, segurar a mao, um beijo sem razao especial - e uma linguagem poderosa. Nao espere um momento especial para tocar com afeto.",challenge:"Hoje, toque seu conjuge com intencao pelo menos tres vezes - um abraco longo, segurar a mao, ou um beijo na testa. So porque voce quis.",prayer:"Senhor, que o nosso toque seja sempre expressao de cuidado e afeto. Amen."},
-{day:16,title:"Sonhos do Casal",verse:'"Onde nao ha visao, o povo perece." - Proverbios 29:18',reflection:"Casais que nao sonham juntos tendem a crescer em direcoes diferentes. Os sonhos compartilhados criam um proposito comum - algo que voces dois estao construindo.",challenge:"Cada um escreve em um papel tres sonhos para o casal nos proximos 5 anos. Troquem os papeis, leiam e conversem sobre os pontos em comum.",prayer:"Deus, nos da uma visao compartilhada para o nosso futuro. Amen."},
-{day:17,title:"Servico como Amor",verse:'"Por humildade, considerando cada um os outros superiores a si mesmo." - Filipenses 2:3',reflection:"Jesus lavou os pes dos discipulos. O maior ato de amor muitas vezes se parece com servico. No casamento, servir ao outro e um ato espiritual.",challenge:"Faca hoje, sem ser pedido e sem esperar reconhecimento, algo que aliviaria o dia do seu conjuge.",prayer:"Pai, nos faz servos um do outro com alegria. Amen."},
-{day:18,title:"Gratidao que Transforma",verse:'"Em tudo dai gracas." - 1 Tessalonicenses 5:18',reflection:"A mente humana nota mais facilmente o que falta do que o que existe. A gratidao intencional reverte esse vies. Treine o olhar para perceber o bem.",challenge:"Escrevam juntos uma lista de 10 coisas que agradecem um no outro. Leiam as listas um para o outro em voz alta.",prayer:"Senhor, nos abre os olhos para ver as bencaos. Que a gratidao seja o tom do nosso lar. Amen."},
-{day:19,title:"Ciume e Seguranca",verse:'"O amor se alegra com a verdade." - 1 Corintios 13:6',reflection:"O ciume excessivo vem do medo, nao do amor. A seguranca em um relacionamento se constroi com transparencia, confianca e comunicacao. Nao com controle.",challenge:"Tenham uma conversa honesta: 'O que eu posso fazer para que voce se sinta mais seguro(a) em nosso relacionamento?' Oucam sem se defender.",prayer:"Deus, que o nosso amor construa seguranca, nao prisoes. Amen."},
-{day:20,title:"Metade do Caminho",verse:'"Melhor e serem dois do que um." - Eclesiastes 4:9',reflection:"Vinte dias. Metade da jornada. As vezes o casamento parece pesado porque carregamos coisas que nao nos pertencem. Hora de largar o peso desnecessario.",challenge:"Cada um compartilha algo que tem carregado sozinho. O outro ouve sem dar conselho - so acolhe.",prayer:"Pai, obrigado por este parceiro de jornada. Nos ajuda a carregar os pesos juntos. Amen."},
-{day:21,title:"A Linguagem do Amor",verse:'"Nao busques o teu proprio bem, mas o bem alheio." - 1 Corintios 10:24',reflection:"Tendemos a amar os outros da forma que queremos ser amados. Aprender a linguagem do seu conjuge e um dos maiores atos de amor que voce pode fazer.",challenge:"Pergunte: 'Como voce mais se sente amado(a)? O que eu faco que te faz sentir valorizado(a)?' Ouca com cuidado.",prayer:"Senhor, nos ensina a amar da forma que o outro precisa receber. Amen."},
-{day:22,title:"Fe Compartilhada",verse:'"Onde dois ou tres estao reunidos em meu nome, ali estou." - Mateus 18:20',reflection:"Casal que ora junto, permanece junto. A fe compartilhada cria uma ancora que segura o casamento em tempestades. Nao precisa ser complexo.",challenge:"Criem um ritual espiritual juntos - algo simples que possam fazer regularmente. Facam pela primeira vez hoje.",prayer:"Pai, que a nossa fe seja o centro do nosso lar. Amen."},
-{day:23,title:"Lidar com o Passado",verse:'"Eis que faco coisa nova." - Isaias 43:19',reflection:"O passado pode ser um professor valioso ou uma prisao cruel. Trazer erros passados repetidamente para conflitos presentes e uma forma de nunca realmente perdoar.",challenge:"Identifique algo do passado que voce ainda traz para as brigas atuais. Ore sobre isso e decida, conscientemente, deixar esse ponto de lado.",prayer:"Senhor, nos liberta do passado. Que possamos enxergar o casamento com olhos novos. Amen."},
-{day:24,title:"Cuidar de Si para Cuidar do Outro",verse:'"Nao sabeis que o vosso corpo e o templo do Espirito Santo?" - 1 Corintios 6:19',reflection:"Voce nao consegue dar o que nao tem. Um conjuge esgotado tem muito menos a oferecer ao relacionamento. Cuidar de voce mesmo nao e egoismo.",challenge:"Cada um diz ao outro uma coisa que o ajudaria a se sentir melhor consigo mesmo. Comprometam-se a apoiar.",prayer:"Pai, que possamos nos cuidar para cuidar melhor um do outro. Amen."},
-{day:25,title:"Honrar os Limites",verse:'"O que Deus ajuntou nao o separe o homem." - Mateus 19:6',reflection:"Todo casamento precisa de limites saudaveis com trabalho, amigos, familia, redes sociais. Saber dizer nao para outras coisas e saber dizer sim para o casamento.",challenge:"'Existe algo em nossa rotina que esta roubando tempo e energia do nosso casamento?' Identifiquem um limite que precisam estabelecer juntos.",prayer:"Senhor, nos da sabedoria para proteger o que construimos. Amen."},
-{day:26,title:"A Arte de Ceder",verse:'"Sede submissos uns aos outros no temor de Cristo." - Efesios 5:21',reflection:"Ceder nao e fraqueza. Em um casamento saudavel, ambos cedem. O casamento funciona no modelo de dois que se submetem mutuamente, em amor.",challenge:"Hoje, em alguma situacao pequena, ceda ao desejo do seu conjuge sem reclamar e com alegria genuina.",prayer:"Deus, nos ensina a ceder com graca e nao com amargura. Amen."},
-{day:27,title:"Quando Um Esta Mais Fraco",verse:'"Se um cair, o companheiro levantara o seu amigo." - Eclesiastes 4:10',reflection:"Havera epocas em que um de voces estara mais forte e o outro mais fraco. O casamento e o lugar onde a fraqueza nao precisa se esconder.",challenge:"Pergunte: 'Como voce esta de verdade? Nao a resposta de costume.' E ouca com paciencia.",prayer:"Pai, que sejamos suporte um para o outro nas estacoes dificeis. Amen."},
-{day:28,title:"Deixar as Familias no Lugar Certo",verse:'"Por isso, deixara o homem pai e mae e se unira a sua mulher." - Genesis 2:24',reflection:"'Deixar pai e mae' nao significa abandona-los; significa que o conjuge agora ocupa o primeiro lugar. A lealdade primaria e com quem voce se casou.",challenge:"'Existe alguma influencia familiar que tem criado atrito em nosso casamento? Como podemos lidar com isso juntos?' Conversem com honestidade.",prayer:"Senhor, que honremos nossas familias sem deixa-las ocupar o lugar do conjuge. Amen."},
-{day:29,title:"Surpresa e Espontaneidade",verse:'"O coracao alegre faz bem como uma medicina." - Proverbios 17:22',reflection:"Casamentos que perderam a espontaneidade ficam pesados. Uma surpresa simples pode reacender algo que parecia apagado. O amor serio nao precisa ser sombrio.",challenge:"Surpreenda seu conjuge hoje com algo inesperado - um bilhetinho, o prato favorito sem ocasiao, ou uma piada interna.",prayer:"Deus, que a alegria habite o nosso lar. Amen."},
-{day:30,title:"Transparencia sem Crueldade",verse:'"Falando a verdade em amor, crescamos naquele que e a cabeca, Cristo." - Efesios 4:15',reflection:"Verdade e amor precisam caminhar juntos. Dizer a verdade sem amor e crueldade disfarcada de honestidade.",challenge:"Diga ao seu conjuge algo verdadeiro e importante que voce tem evitado falar - mas diga com cuidado, escolhendo bem as palavras.",prayer:"Pai, que a verdade no nosso casamento sempre venha embalada em amor. Amen."},
-{day:31,title:"O Casamento como Testemunho",verse:'"Assim brilhe a luz de voces diante dos homens." - Mateus 5:16',reflection:"Seu casamento fala. Um casamento que demonstra respeito, amor e alegria genuina e um testemunho poderoso no mundo de hoje.",challenge:"Qual casal ou pessoa jovem ao redor de voces poderia se beneficiar de um encorajamento? Facam algo concreto hoje.",prayer:"Senhor, que o nosso casamento seja uma bencao para todos ao nosso redor. Amen."},
-{day:32,title:"Quando Deus Parece Distante",verse:'"Nunca te deixarei, nem te abandonarei." - Hebreus 13:5',reflection:"Ha epocas em que as oracoes parecem nao subir. Nesses momentos, a fidelidade importa mais do que o sentimento. Continue orando, mesmo sem emocao.",challenge:"Compartilhem como esta a vida espiritual de cada um hoje - sem julgamento. Orem juntos assim mesmo.",prayer:"Pai, mesmo quando nao Te sentimos perto, escolhemos confiar em Ti. Amen."},
-{day:33,title:"Paciencia como Pratica",verse:'"O amor e paciente." - 1 Corintios 13:4',reflection:"A paciencia nao e passividade. E escolher nao reagir impulsivamente. Voce convive com alguem todos os dias - toda falha fica exposta.",challenge:"Hoje, quando sentir impaciencia com seu conjuge, respire fundo antes de reagir. Pergunte: 'Isso vai importar daqui a um ano?'",prayer:"Deus, nos da paciencia uns com os outros. Amen."},
-{day:34,title:"Cumplicidade",verse:'"Dois sao melhor do que um." - Eclesiastes 4:9',reflection:"Cumplicidade e aquele olhar trocado num jantar que so voces dois entendem. Casais cumplices constroem uma linguagem propria.",challenge:"Criem ou relembrem algo que e so de voces - um apelido, um gesto, uma piada interna. Celebrem essa linguagem particular.",prayer:"Senhor, obrigado pela cumplicidade que construimos. Que continuemos nos escolhendo a cada dia. Amen."},
-{day:35,title:"Generosidade no Casamento",verse:'"Dai, e ser-vos-a dado." - Lucas 6:38',reflection:"Um casamento generoso e aquele onde ninguem fica contando pontos. O amor nao funciona no sistema de troca.",challenge:"Hoje, faca tres coisas pequenas pelo seu conjuge sem esperar nada em troca e sem mencionar que fez.",prayer:"Pai, que possamos ser generosos um com o outro como Tu es generoso conosco. Amen."},
-{day:36,title:"Renovar os Votos Todo Dia",verse:'"O amor nunca falha." - 1 Corintios 13:8',reflection:"Os votos do casamento foram feitos para serem renovados silenciosamente todos os dias. Cada dia que voces se escolhem e uma renovacao de votos.",challenge:"Escrevam os 'votos do dia' - nao os formais, mas o que querem prometer um ao outro para hoje. Leiam um para o outro.",prayer:"Senhor, que renovemos nosso compromisso a cada amanecer. Amen."},
-{day:37,title:"O Legado que Voces Constroem",verse:'"Os filhos dos teus filhos sao a coroa dos velhos." - Proverbios 17:6',reflection:"Seu casamento nao e so sobre voces dois. E sobre o legado que estao deixando. Um casamento que persevera planta sementes que outros vao colher por geracoes.",challenge:"Conversem: que tipo de legado querem deixar? Como querem ser lembrados como casal?",prayer:"Pai, que o nosso casamento seja um presente para todos que virao depois. Amen."},
-{day:38,title:"Nas Tempestades",verse:'"Tende bom animo, eu venci o mundo." - Joao 16:33',reflection:"Nenhum casamento fica imune as tempestades. O que importa nao e a ausencia de tempestades - e o que voces fazem quando elas chegam.",challenge:"Conversem sobre uma tempestade que ja enfrentaram juntos e superaram. O que aprenderam sobre como enfrentar dificuldades juntos?",prayer:"Senhor, quando as tempestades vierem, que nos encontrem de maos dadas. Amen."},
-{day:39,title:"Amor que Envelhece Bem",verse:'"Quem encontrou uma boa esposa encontrou algo precioso." - Proverbios 18:22',reflection:"O amor que envelhece bem e obra-prima. E o casal de 70 anos que ainda ri junto. Esse amor nao cai do ceu - e cultivado. Dia apos dia, escolha apos escolha.",challenge:"Imaginem-se daqui a 30 ou 40 anos. Como querem estar? O que querem que ainda esteja vivo no relacionamento? Compartilhem essa visao hoje.",prayer:"Pai, que o nosso amor enveleca bem. Que o passar do tempo nos aproxime. Amen."},
-{day:40,title:"O Comeco de Tudo",verse:'"Eu vim para que tenham vida e a tenham em abundancia." - Joao 10:10',reflection:"Parabens! Voces chegaram ao Dia 40 - juntos. Mas o Dia 40 nao e o fim - e o comeco. Cada habito cultivado aqui plantou uma semente. E sementes crescem. O melhor do casamento de voces ainda esta por vir.",challenge:"Celebrem como merecem. Jantem juntos, brindem a jornada, e cada um diz ao outro: 'Eu te escolho. Hoje e sempre.'",prayer:"Senhor, obrigado por estes 40 dias. Obrigado pelo conjuge ao nosso lado. Que tudo o que vivemos aqui continue vivo. Agora e para sempre. Amen."}];
-let completed=JSON.parse(localStorage.getItem('cad_completed')||'[]');
-let startDate=localStorage.getItem('cad_start');
-let name1=localStorage.getItem('cad_name1')||'';
-let name2=localStorage.getItem('cad_name2')||'';
-
+const days=[{"day":1,"title":"O Amor é uma Decisão","verse":"\"Não amemos de palavra nem de língua, mas em ações e em verdade.\" - 1 João 3:18","reflection":"Muita gente espera sentir vontade de amar para depois agir. Mas o amor que dura não espera a vontade chegar. Ele age primeiro, e o sentimento vem depois. Seu casamento não vai crescer sozinho esperando que as coisas melhorem.","challenge":"Olhe nos olhos do seu cônjuge e diga uma coisa específica que você admira nele(a). Algo real, que você observou nos últimos dias.","prayer":"Senhor, nos ajuda a escolher o amor todos os dias, mesmo quando é difícil. Que nossas ações falem mais alto que nossas palavras. Amém."},{"day":2,"title":"Presença de Verdade","verse":"\"Esteja pronto para ouvir, mas seja tardio para falar.\" - Tiago 1:19","reflection":"Estar no mesmo cômodo não é o mesmo que estar presente. Você pode estar sentado ao lado do seu cônjuge olhando para o celular e estar completamente ausente. Presença de verdade é olho no olho, corpo virado, ouvido aberto.","challenge":"Por 15 minutos hoje, guardem os celulares, desliguem a TV e só conversem. Pode ser sobre qualquer coisa.","prayer":"Deus, nos ensina a estar verdadeiramente presentes um para o outro. Que nossa atenção seja um ato de amor. Amém."},{"day":3,"title":"Palavras que Constroem","verse":"\"Nenhuma palavra torpe saia de vossa boca, mas a que for boa para edificação.\" - Efésios 4:29","reflection":"As palavras têm peso. Uma crítica dura pode durar anos na memória. Um elogio genuíno pode mudar o dia de alguém. No casamento, somos o principal espelho um do outro.","challenge":"Diga três coisas específicas que você aprecia no seu cônjuge. Não genéricas — concretas. Algo que você viu esta semana.","prayer":"Pai, que nossas palavras construam pontes, não muros. Que falemos com graça e verdade. Amém."},{"day":4,"title":"O Perigo da Rotina","verse":"\"Eis que faço uma coisa nova; agora há de brotar.\" - Isaías 43:19","reflection":"A rotina não é o inimigo do casamento — o descuido é. Quando paramos de nos surpreender, o relacionamento começa a murchar. A novidade não precisa ser grande.","challenge":"Planejem algo diferente para esta semana — pode ser simples: um café em lugar novo, uma rota diferente, uma pergunta que nunca fizeram um ao outro.","prayer":"Senhor, nos dá criatividade para manter nosso amor vivo e nossa união fresca. Amém."},{"day":5,"title":"Perdão: O Remédio Mais Difícil","verse":"\"Sede bondosos uns para com os outros, compassivos, perdoando-vos mutuamente.\" - Efésios 4:32","reflection":"Guardar mágoa é carregar peso desnecessário. O perdão não apaga o que aconteceu — liberta quem perdoa. No casamento, a falta de perdão cria paredes invisíveis que crescem com o tempo.","challenge":"Pense em algo pelo qual você ainda guarda ressentimento. Ore pedindo força para perdoar — mesmo que não diga nada ainda. Dê o primeiro passo interior.","prayer":"Pai, nos ajuda a perdoar como fomos perdoados. Que o rancor não encontre lugar no nosso lar. Amém."},{"day":6,"title":"Aprender a Pedir Desculpas","verse":"\"Confessai as vossas culpas uns aos outros.\" - Tiago 5:16","reflection":"Há uma diferença entre 'me desculpe se você se sentiu assim' e 'me desculpe, eu errei'. A primeira se defende. A segunda se responsabiliza. Um pedido de desculpas genuíno não tem 'mas' no final.","challenge":"Pense em algo recente que você poderia ter feito melhor. Peça desculpas — sem justificativas. Só: 'Errei nisso. Me desculpa.'","prayer":"Senhor, me dá humildade para reconhecer meus erros e coragem para pedir desculpas de verdade. Amém."},{"day":7,"title":"Descanso Juntos","verse":"\"Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei.\" - Mateus 11:28","reflection":"Casais que descansam juntos se reconectam. Não é preciso ir longe — é preciso desligar. Uma tarde sem compromisso pode ser exatamente o que o casamento precisa.","challenge":"Planejem pelo menos meia hora de descanso juntos esta semana — sem celular, sem televisão. Só vocês dois.","prayer":"Pai, nos ensina a descansar. Que o nosso lar seja um lugar de paz e repouso. Amém."},{"day":8,"title":"Você Me Vê?","verse":"\"Tu és o Deus que me vê.\" - Gênesis 16:13","reflection":"Todo ser humano quer ser visto — não apenas olhado. Ser visto é ter alguém que percebe quando você está cansado, que lembra o que você disse semanas atrás, que nota quando algo mudou.","challenge":"Diga ao seu cônjuge: 'Eu te vejo quando...' e complete com algo específico que você notou recentemente. Mostre que você está atento(a).","prayer":"Senhor, assim como Tu nos vês, nos dá olhos para verdadeiramente ver um ao outro. Amém."},{"day":9,"title":"Finanças e Casamento","verse":"\"Sede sábios, pois, e não como insensatos.\" - Efésios 5:15","reflection":"Dinheiro é uma das maiores fontes de conflito nos casamentos. Não porque ele é o problema — mas porque revela valores, medos e prioridades diferentes. Falar sobre finanças com honestidade é um ato de intimidade.","challenge":"Tenham uma conversa honesta sobre as finanças de vocês. Sem julgamento — com curiosidade. Onde querem estar em 5 anos?","prayer":"Pai, nos dá sabedoria para administrar o que nos confiaste. Que o dinheiro nos una, não nos divida. Amém."},{"day":10,"title":"O Dom da Amizade","verse":"\"O amigo ama em todo o tempo.\" - Provérbios 17:17","reflection":"O melhor casamento é aquele em que os dois também são amigos. Amigos que riem juntos, que contam histórias sem medo de julgamento, que preferem a companhia um do outro.","challenge":"Façam algo que amigos fariam — joguem um jogo, assistam a um filme que os dois gostam, saiam para dar uma volta sem destino.","prayer":"Obrigado, Senhor, por nos dar um(a) amigo(a) para a vida toda. Que nossa amizade cresça junto com o amor. Amém."},{"day":11,"title":"Respeito em Público e em Privado","verse":"\"Honrai a todos.\" - 1 Pedro 2:17","reflection":"Como você fala do seu cônjuge quando ele(a) não está presente? Como você o(a) trata na frente dos filhos, dos amigos, da família? O respeito não é seletivo — ele precisa ser consistente.","challenge":"Diga uma coisa positiva sobre seu cônjuge para outra pessoa hoje. E em casa, verifique se o tom que usa com ele(a) é o mesmo que usaria com um amigo próximo.","prayer":"Pai, que honremos nosso cônjuge tanto em público quanto em privado. Amém."},{"day":12,"title":"Intimidade Além do Físico","verse":"\"E os dois serão uma só carne.\" - Gênesis 2:24","reflection":"A intimidade conjugal vai além do físico. É saber os medos secretos do outro, compartilhar os sonhos. Quando a intimidade emocional está bem, o resto do casamento flui melhor.","challenge":"Compartilhe algo com seu cônjuge que você raramente conta — um medo, um sonho, uma insegurança. Depois, ouça o dele(a) com atenção e sem julgamento.","prayer":"Senhor, cria entre nós um espaço seguro onde possamos ser quem somos sem medo. Amém."},{"day":13,"title":"Brigar Bem","verse":"\"Irai-vos, e não pequeis; não se ponha o sol sobre a vossa ira.\" - Efésios 4:26","reflection":"Todo casal briga. O problema não é o conflito em si — é a forma de resolver. Sem xingamentos, sem trazer o passado, sem gritar para ganhar. O objetivo não é vencer a briga — é resolver o problema juntos.","challenge":"Conversem sobre as 'regras' de como querem lidar com conflitos. Cada um diz uma coisa que o machuca durante as brigas e outra que ajuda a resolver.","prayer":"Senhor, quando discordamos, que busquemos a paz e não a vitória. Amém."},{"day":14,"title":"Duas Semanas: Pausa para Celebrar","verse":"\"Alegremo-nos e exultemos.\" - Apocalipse 19:7","reflection":"Duas semanas de desafios. Isso não é pouco. Muitos casais chegam ao final de um dia exaustos demais para se perguntar como o outro está. Vocês escolheram diferente.","challenge":"Celebrem as duas semanas! Façam algo especial juntos hoje — pode ser simples: uma refeição favorita, uma sobremesa, um passeio. O importante é comemorar intencionalmente.","prayer":"Pai, obrigado por estes 14 dias. Que nossa gratidão cresça a cada dia que investimos neste casamento. Amém."},{"day":15,"title":"O Poder do Toque","verse":"\"Saudai-vos uns aos outros com ósculo santo.\" - Romanos 16:16","reflection":"O toque físico — um abraço, segurar as mãos, um beijo no rosto — tem poder de reconexão imediata. Um abraço de pelo menos 6 segundos libera ocitocina, o hormônio da conexão.","challenge":"Dê ao seu cônjuge pelo menos três abraços de 6 segundos hoje. Não apressados — lentos, presentes, intencionais.","prayer":"Obrigado, Senhor, pela dádiva do toque. Que possamos usar esse presente para curar, conectar e amar. Amém."},{"day":16,"title":"Sonhos do Casal","verse":"\"Onde não há visão, o povo perece.\" - Provérbios 29:18","reflection":"Casais que sonham juntos caminham juntos. Quando cada um vive seus próprios sonhos sem compartilhá-los, a distância emocional cresce. Ter uma visão compartilhada de futuro é cimento relacional.","challenge":"Sentem-se e conversem: onde querem estar daqui a 5 anos? Que tipo de casal querem ser? Que experiências querem ter juntos?","prayer":"Senhor, nos dá uma visão compartilhada. Que nossos sonhos se tornem um só. Amém."},{"day":17,"title":"Serviço como Amor","verse":"\"Pelo amor, servi uns aos outros.\" - Gálatas 5:13","reflection":"Amar é servir. Não por obrigação — por escolha. Quando você faz algo pelo seu cônjuge sem esperar reconhecimento, está praticando o amor mais maduro e genuíno.","challenge":"Faça hoje algo pelo seu cônjuge que você sabe que ele(a) aprecia — e faça sem avisar, sem esperar elogios. Só porque você ama.","prayer":"Pai, nos ensina a servir com alegria. Que o serviço mútuo seja a linguagem do nosso casamento. Amém."},{"day":18,"title":"Gratidão que Transforma","verse":"\"Em tudo dai graças.\" - 1 Tessalonicenses 5:18","reflection":"A gratidão muda o que olhamos. Quando começamos a notar e nomear o que nosso cônjuge faz de bom, paramos de catalogar o que falta. E o que focamos, cresce.","challenge":"Diga ao seu cônjuge três coisas específicas pelas quais você é grato(a) nele(a). Não genéricas — concretas. Algo desta semana.","prayer":"Obrigado, Senhor, pelo presente que é meu cônjuge. Abre meus olhos para enxergar e minha boca para expressar gratidão. Amém."},{"day":19,"title":"Ciúme e Segurança","verse":"\"O amor perfeito lança fora o temor.\" - 1 João 4:18","reflection":"O ciúme saudável é sinal de amor. O ciúme doentio é sinal de insegurança. A diferença está na raiz: o primeiro cuida, o segundo controla. Segurança no relacionamento se constrói com transparência e confiança.","challenge":"Conversem: 'O que me faz sentir mais seguro(a) em nosso relacionamento?' Ouçam sem se defender.","prayer":"Deus, que o nosso amor construa segurança, não prisões. Amém."},{"day":20,"title":"Metade do Caminho","verse":"\"Melhor é serem dois do que um.\" - Eclesiastes 4:9","reflection":"Vinte dias. Metade da jornada. Às vezes o casamento parece pesado porque carregamos coisas que não nos pertencem. Hora de largar o peso desnecessário.","challenge":"Cada um compartilha algo que tem carregado sozinho. O outro ouve sem dar conselho — só acolhe.","prayer":"Pai, obrigado por este parceiro de jornada. Nos ajuda a carregar os pesos juntos. Amém."},{"day":21,"title":"A Linguagem do Amor","verse":"\"Não busques o teu próprio bem, mas o bem alheio.\" - 1 Coríntios 10:24","reflection":"Tendemos a amar os outros da forma que queremos ser amados. Aprender a linguagem do seu cônjuge é um dos maiores atos de amor que você pode fazer.","challenge":"Pergunte: 'Como você mais se sente amado(a)? O que eu faço que te faz sentir valorizado(a)?' Ouça com atenção.","prayer":"Senhor, nos ensina a amar do jeito que o outro precisa receber, não só do jeito que gostamos de dar. Amém."},{"day":22,"title":"Fé Compartilhada","verse":"\"Onde dois ou três estiverem reunidos em meu nome, ali estou no meio deles.\" - Mateus 18:20","reflection":"Um casal que ora junto permanece junto. A fé compartilhada não significa que os dois precisam ser idênticos espiritualmente — mas que há espaço para Deus no relacionamento.","challenge":"Orem juntos hoje. Pode ser simples — uma oração de 2 minutos antes de dormir. O que importa é o hábito de convidar Deus para o centro do casamento.","prayer":"Pai, que sejas o alicerce do nosso lar e o centro do nosso casamento. Amém."},{"day":23,"title":"Lidar com o Passado","verse":"\"Esquecendo-me das coisas que ficaram para trás.\" - Filipenses 3:13","reflection":"Todo mundo traz histórias para o casamento. Traumas, medos, padrões aprendidos na família de origem. O passado não determina o futuro — mas precisa ser reconhecido para não sabotar o presente.","challenge":"Compartilhem algo da história de vocês que ainda afeta o casamento. Não para resolver agora — mas para ser visto e acolhido.","prayer":"Senhor, cura as feridas que trouxemos para este casamento. Que o passado não roube o nosso presente. Amém."},{"day":24,"title":"Cuidar de Si para Cuidar do Outro","verse":"\"Não sabeis que o vosso corpo é o templo do Espírito Santo?\" - 1 Coríntios 6:19","reflection":"Você não consegue dar o que não tem. Um cônjuge esgotado tem muito menos a oferecer ao relacionamento. Cuidar de você mesmo não é egoísmo.","challenge":"Cada um diz ao outro uma coisa que o ajudaria a se sentir melhor consigo mesmo. Comprometam-se a apoiar.","prayer":"Pai, que possamos nos cuidar para cuidar melhor um do outro. Amém."},{"day":25,"title":"Honrar os Limites","verse":"\"O que Deus ajuntou não o separe o homem.\" - Mateus 19:6","reflection":"Todo casamento precisa de limites saudáveis com trabalho, amigos, família, redes sociais. Saber dizer não para outras coisas é saber dizer sim para o casamento.","challenge":"'Existe algo em nossa rotina que está roubando tempo e energia do nosso casamento?' Identifiquem um limite que precisam estabelecer juntos.","prayer":"Senhor, nos dá sabedoria para proteger o nosso casamento com limites saudáveis. Amém."},{"day":26,"title":"A Arte de Ceder","verse":"\"Nada façais por contenda ou por vanglória, mas por humildade.\" - Filipenses 2:3","reflection":"Ceder não é fraqueza — é sabedoria. Em todo casamento há momentos em que alguém precisa dar um passo atrás. A questão não é quem tem razão, mas o que é melhor para os dois.","challenge":"Pense em uma área onde você tem sido inflexível. Converse com seu cônjuge sobre como poderiam encontrar um meio-termo.","prayer":"Pai, nos ensina a colocar o 'nós' acima do 'eu'. Que a humildade governe nossas decisões. Amém."},{"day":27,"title":"Quando Um Está Mais Fraco","verse":"\"O amor é paciente, o amor é bondoso.\" - 1 Coríntios 13:4","reflection":"Haverá dias em que um de vocês terá menos a oferecer. Doenças, perdas, esgotamento. Nesses momentos, o casamento não é 50/50 — é 100% do que cada um consegue dar naquele dia.","challenge":"Perguntem um ao outro: 'Como posso te ajudar melhor nos dias difíceis?' Escutem com atenção.","prayer":"Senhor, nos dá força nos dias fracos e graça para carregar o outro quando necessário. Amém."},{"day":28,"title":"Deixar as Famílias no Lugar Certo","verse":"\"Por isso deixará o homem seu pai e sua mãe.\" - Gênesis 2:24","reflection":"Casar é criar uma nova família. Isso não significa abandonar as famílias de origem — mas entender que o cônjuge agora vem primeiro. Muitos conflitos conjugais têm raízes na dificuldade de estabelecer essa prioridade.","challenge":"Conversem: 'Existe algo nas nossas famílias de origem que precisa ser ajustado em relação ao nosso casamento?' Sejam honestos e gentis.","prayer":"Pai, nos ajuda a honrar nossas famílias enquanto construímos a nossa própria. Amém."},{"day":29,"title":"Surpresa e Espontaneidade","verse":"\"Eis que faço uma coisa nova.\" - Isaías 43:19","reflection":"A rotina é necessária, mas a espontaneidade é o tempero. Uma surpresa simples — uma mensagem inesperada, um abraço no momento certo, um plano de última hora — pode renovar o entusiasmo do relacionamento.","challenge":"Faça uma surpresa para seu cônjuge hoje. Pode ser pequena — o que importa é o gesto intencional de surpreender.","prayer":"Senhor, que nunca percamos a capacidade de nos surpreender mutuamente. Amém."},{"day":30,"title":"Transparência sem Crueldade","verse":"\"Falando a verdade em amor.\" - Efésios 4:15","reflection":"Verdade e amor precisam caminhar juntos. Dizer a verdade sem amor é crueldade disfarçada de honestidade.","challenge":"Diga ao seu cônjuge algo verdadeiro e importante que você tem evitado falar — mas diga com cuidado, escolhendo bem as palavras.","prayer":"Pai, que a verdade no nosso casamento sempre venha embalada em amor. Amém."},{"day":31,"title":"O Casamento como Testemunho","verse":"\"Assim brilhe a luz de vocês diante dos homens.\" - Mateus 5:16","reflection":"Seu casamento fala. Um casamento que demonstra respeito, amor e alegria genuína é um testemunho poderoso no mundo de hoje.","challenge":"Qual casal ou pessoa jovem ao redor de vocês poderia se beneficiar de um encorajamento? Façam algo concreto hoje.","prayer":"Senhor, que o nosso casamento seja uma bênção para todos ao nosso redor. Amém."},{"day":32,"title":"Quando Deus Parece Distante","verse":"\"Eu nunca te deixarei, nem te abandonarei.\" - Hebreus 13:5","reflection":"Haverá estações difíceis — de dúvida, de silêncio, de escuridão. O casamento pode ser o lugar onde vocês se amparam mutuamente quando um deles está passando por isso.","challenge":"Compartilhem: 'Existe algo na minha fé ou vida espiritual que preciso da sua ajuda ou presença?' Sejam vulneráveis.","prayer":"Pai, nos sustenta nas estações difíceis. Que possamos ser luz um para o outro quando a escuridão chegar. Amém."},{"day":33,"title":"Paciência como Prática","verse":"\"O amor é paciente.\" - 1 Coríntios 13:4","reflection":"Paciência não é passividade — é a escolha ativa de não reagir no impulso. No casamento, a paciência é um dos maiores presentes que você pode dar.","challenge":"Identifiquem uma situação recorrente que tira a paciência de vocês. Conversem sobre como poderiam responder diferente da próxima vez.","prayer":"Senhor, nos dá a paciência que só vem de Ti. Que respondamos com graça mesmo quando é difícil. Amém."},{"day":34,"title":"Crescer Juntos","verse":"\"O ferro aguça o ferro.\" - Provérbios 27:17","reflection":"Os melhores casamentos são aqueles em que cada cônjuge ajuda o outro a crescer — não por pressão, mas por inspiração. Você está crescendo com a presença do seu cônjuge?","challenge":"Perguntem um ao outro: 'Em que área você me vê crescendo? E em que área você acha que eu poderia crescer mais?' Ouçam com abertura.","prayer":"Pai, que sejamos instrumentos de crescimento um para o outro. Amém."},{"day":35,"title":"O Casamento que Você Quer","verse":"\"Tudo o que pedirdes em meu nome, eu o farei.\" - João 14:13","reflection":"Você já parou para pensar claramente em que tipo de casamento quer ter? Não o que a sociedade define — o que você, no fundo, deseja?","challenge":"Cada um descreve em voz alta o casamento que sonha ter daqui a 10 anos. Sejam específicos. Depois, identifiquem um passo concreto para caminhar nessa direção.","prayer":"Senhor, nos guia em direção ao casamento que Tu tens para nós. Amém."},{"day":36,"title":"Renovar os Votos Todo Dia","verse":"\"Cada manhã se renovam as tuas misericórdias.\" - Lamentações 3:23","reflection":"Votos de casamento não são feitos uma vez. São renovados em cada escolha de ficar, de perdoar, de continuar. O casamento é construído de mil pequenas renovações cotidianas.","challenge":"Escrevam — cada um em um papel — uma promessa nova para o cônjuge. Pode ser simples. Leiam um para o outro.","prayer":"Pai, que escolhamos um ao outro todos os dias, com a mesma intenção do primeiro dia. Amém."},{"day":37,"title":"O Legado que Vocês Constroem","verse":"\"Os filhos dos teus filhos são a coroa dos velhos.\" - Provérbios 17:6","reflection":"Seu casamento está construindo um legado — quer você perceba ou não. As crianças ao redor de vocês aprendem o que é amor observando como vocês se tratam.","challenge":"Conversem: que legado vocês querem deixar? Que história de amor querem contar aos seus filhos, netos, sobrinhos?","prayer":"Senhor, que o nosso amor construa algo que valha a pena ser herdado. Amém."},{"day":38,"title":"Nas Tempestades","verse":"\"Quem edificou a sua casa sobre a rocha... não caiu.\" - Mateus 7:25","reflection":"Tempestades virão. Doença, perda, crise financeira, decepção. O casamento não é imune à dor — mas pode ser o porto seguro dentro dela.","challenge":"Conversem sobre uma tempestade que já enfrentaram juntos e superaram. O que aprenderam sobre como enfrentar dificuldades juntos?","prayer":"Senhor, quando as tempestades vierem, que nos encontrem de mãos dadas. Amém."},{"day":39,"title":"Amor que Envelhece Bem","verse":"\"Quem encontrou uma boa esposa encontrou algo precioso.\" - Provérbios 18:22","reflection":"O amor que envelhece bem é obra-prima. É o casal de 70 anos que ainda ri junto. Esse amor não cai do céu — é cultivado. Dia após dia, escolha após escolha.","challenge":"Imaginem-se daqui a 30 ou 40 anos. Como querem estar? O que querem que ainda esteja vivo no relacionamento? Compartilhem essa visão hoje.","prayer":"Pai, que o nosso amor envelheça bem. Que o passar do tempo nos aproxime. Amém."},{"day":40,"title":"O Começo de Tudo","verse":"\"Eu vim para que tenham vida e a tenham em abundância.\" - João 10:10","reflection":"Parabéns! Vocês chegaram ao Dia 40 — juntos. Mas o Dia 40 não é o fim — é o começo. Cada hábito cultivado aqui, cada conversa honesta, cada perdão praticado foi um tijolo numa construção que vai durar.","challenge":"Escrevam juntos: 'Nos comprometemos a...' e listem três hábitos que querem continuar após estes 40 dias.","prayer":"Pai, obrigado por estes 40 dias. Que o que cultivamos aqui floresça para sempre. Que nosso casamento seja um reflexo do Teu amor. Amém."}];
+let completed=JSON.parse(localStorage.getItem('completed')||'[]');
+let startDate=localStorage.getItem('startDate');
+let name1=localStorage.getItem('name1')||'';
+let name2=localStorage.getItem('name2')||'';
 function startChallenge(){
   const n1=document.getElementById('name1').value.trim();
   const n2=document.getElementById('name2').value.trim();
-  if(!n1||!n2){alert('Por favor, preencha os dois nomes!');return;}
-  name1=n1;name2=n2;
-  localStorage.setItem('cad_name1',name1);
-  localStorage.setItem('cad_name2',name2);
-  if(!startDate){startDate=new Date().toISOString().split('T')[0];localStorage.setItem('cad_start',startDate);}
-  showApp();
+  if(!n1||!n2){alert('Por favor, preencha os dois nomes para começar!');return}
+  localStorage.setItem('name1',n1);localStorage.setItem('name2',n2);
+  if(!startDate){startDate=new Date().toISOString().split('T')[0];localStorage.setItem('startDate',startDate)}
+  name1=n1;name2=n2;showApp()
 }
-
 function showApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app-screen').style.display='block';
   document.getElementById('couple-names').textContent=name1+' e '+name2;
-  renderAll();
+  renderAll()
 }
-
 function getTodayIndex(){
-  const start=new Date(startDate);const now=new Date();
-  const diff=Math.floor((now-start)/(1000*60*60*24));
-  return Math.min(diff,39);
+  if(!startDate)return 0;
+  const start=new Date(startDate+'T12:00:00');
+  const diff=Math.floor((new Date()-start)/86400000);
+  return Math.min(diff,39)
 }
-
 function getDayStatus(i){
-  if(completed.includes(i))return'completed';
+  if(completed.includes(i))return'done';
   if(i===getTodayIndex())return'today';
   if(i<getTodayIndex())return'available';
-  return'locked';
+  return'locked'
 }
-
+function renderProgress(){
+  const pct=Math.round((completed.length/40)*100);
+  document.getElementById('progress-text').textContent=completed.length+' de 40 dias concluídos';
+  document.getElementById('progress-pct').textContent=pct+'%';
+  document.getElementById('progress-fill').style.width=pct+'%'
+}
+function renderToday(){
+  const idx=getTodayIndex();const d=days[idx];const isDone=completed.includes(idx);
+  document.getElementById('today-card').innerHTML=`<h2>Dia ${d.day} — ${d.title}</h2><div class="verse-box">${d.verse}</div><p class="reflection">${d.reflection}</p><div class="challenge-box"><h4>Desafio do Dia</h4><p>${d.challenge}</p></div><div class="prayer-box"><h4>Oração</h4><p>${d.prayer}</p></div><button class="complete-btn ${isDone?'done':''}" onclick="completeToday()" ${isDone?'disabled':''}>${isDone?'✅ Dia Concluído!':'Marcar Dia como Concluído'}</button>`
+}
 function renderGrid(){
   const grid=document.getElementById('days-grid');grid.innerHTML='';
   days.forEach((d,i)=>{
-    const s=getDayStatus(i);
-    const cell=document.createElement('div');
-    cell.className='day-cell '+s;
-    const icon=s==='completed'?'V':s==='today'?'C':s==='locked'?'L':'';
-    cell.innerHTML='<span class="day-num">'+d.day+'</span><span class="day-icon">'+icon+'</span>';
+    const s=getDayStatus(i);const cell=document.createElement('div');
+    cell.className='day-cell '+(s==='done'?'done':s==='today'?'today':s==='locked'?'locked':'');
+    const icon=s==='done'?'✓':s==='today'?'☕':'🔒';
+    cell.innerHTML=`<span class="day-num">${d.day}</span><span class="day-icon">${icon}</span>`;
     if(s!=='locked')cell.onclick=()=>openModal(i);
-    grid.appendChild(cell);
-  });
+    grid.appendChild(cell)
+  })
 }
-
-function renderToday(){
-  const idx=getTodayIndex();const d=days[idx];const s=getDayStatus(idx);
-  document.getElementById('today-title').textContent='Dia '+d.day+' - '+d.title;
-  document.getElementById('today-verse').textContent=d.verse;
-  document.getElementById('today-reflection').textContent=d.reflection;
-  document.getElementById('today-challenge').textContent=d.challenge;
-  document.getElementById('today-prayer').textContent=d.prayer;
-  const btn=document.getElementById('complete-btn');
-  if(s==='completed'){btn.textContent='Dia Concluido!';btn.classList.add('done');btn.disabled=true;}
-  else{btn.textContent='Marcar como Concluido';btn.disabled=false;btn.classList.remove('done');}
-}
-
-function renderProgress(){
-  const pct=Math.round((completed.length/40)*100);
-  document.getElementById('progress-text').textContent=completed.length+' de 40 dias concluidos';
-  document.getElementById('progress-pct').textContent=pct+'%';
-  document.getElementById('progress-fill').style.width=pct+'%';
-}
-
-function renderAll(){renderProgress();renderToday();renderGrid();}
-
+function renderAll(){renderProgress();renderToday();renderGrid()}
 function completeToday(){
   const idx=getTodayIndex();
-  if(!completed.includes(idx)){completed.push(idx);localStorage.setItem('cad_completed',JSON.stringify(completed));}
-  renderAll();if(completed.length===40)showAllDone();
+  if(!completed.includes(idx)){completed.push(idx);localStorage.setItem('completed',JSON.stringify(completed))}
+  if(completed.length===40){showAllDone();return}
+  renderAll()
 }
-
 function showAllDone(){
-  document.getElementById('today-section').innerHTML='<div class="all-done-banner"><h2>Parabens! Voces completaram os 40 dias!</h2><p>O amor que voces cultivaram aqui vai durar para sempre. Continuem se escolhendo todos os dias.</p><div class="streak-badge">40 dias de amor em acao!</div></div>';
+  document.getElementById('today-card').innerHTML=`<div class="all-done-card"><div style="font-size:3rem">🎉</div><h2>Parabéns!</h2><p>Vocês completaram os 40 dias juntos. Isso é extraordinário. O amor que cultivaram aqui vai durar muito além deste desafio.</p></div>`;
+  renderProgress();renderGrid()
 }
-
 function openModal(idx){
-  const d=days[idx];const s=getDayStatus(idx);
-  document.getElementById('modal-badge').textContent='DIA '+d.day;
-  document.getElementById('modal-title').textContent=d.title;
-  document.getElementById('modal-verse').textContent=d.verse;
-  document.getElementById('modal-reflection').textContent=d.reflection;
-  document.getElementById('modal-challenge').textContent=d.challenge;
-  document.getElementById('modal-prayer').textContent=d.prayer;
-  const btn=document.getElementById('modal-complete-btn');
-  if(s==='completed'){btn.textContent='Dia Concluido!';btn.classList.add('done');btn.disabled=true;btn.onclick=null;}
-  else{btn.textContent='Marcar como Concluido';btn.classList.remove('done');btn.disabled=false;btn.onclick=()=>{completeDay(idx);closeModal();};}
-  document.getElementById('modal-overlay').classList.add('active');
+  const d=days[idx];const isDone=completed.includes(idx);const s=getDayStatus(idx);
+  document.getElementById('modal-content').innerHTML=`<div class="modal-header"><h3>Dia ${d.day} — ${d.title}</h3><button class="close-btn" onclick="closeModal()">✕</button></div><div class="verse-box">${d.verse}</div><p class="reflection">${d.reflection}</p><div class="challenge-box"><h4>Desafio do Dia</h4><p>${d.challenge}</p></div><div class="prayer-box"><h4>Oração</h4><p>${d.prayer}</p></div>${s!=='locked'?`<button class="modal-complete-btn ${isDone?'done':''}" onclick="completeDay(${idx})" ${isDone?'disabled':''}>${isDone?'✅ Concluído':'Marcar como Concluído'}</button>`:''}`;
+  document.getElementById('modal-overlay').classList.add('active')
 }
-
 function completeDay(idx){
-  if(!completed.includes(idx)){completed.push(idx);localStorage.setItem('cad_completed',JSON.stringify(completed));}
-  renderAll();if(completed.length===40)showAllDone();
+  if(!completed.includes(idx)){completed.push(idx);localStorage.setItem('completed',JSON.stringify(completed))}
+  closeModal();
+  if(completed.length===40){showAllDone();return}
+  renderAll()
 }
-
-function closeModal(){document.getElementById('modal-overlay').classList.remove('active');}
-
+function closeModal(e){if(!e||e.target===document.getElementById('modal-overlay'))document.getElementById('modal-overlay').classList.remove('active')}
 function requestNotif(){
-  if(!('Notification' in window)){alert('Seu navegador nao suporta notificacoes.');return;}
-  Notification.requestPermission().then(p=>{
-    if(p==='granted'){
-      localStorage.setItem('cad_notif','true');
-      document.getElementById('notif-btn').textContent='Lembretes ativados!';
-      document.getElementById('notif-btn').style.background='#e8f5e9';
-      document.getElementById('notif-btn').style.borderColor='#4caf50';
-      document.getElementById('notif-btn').style.color='#2d6a35';
-      if('serviceWorker' in navigator){
-        navigator.serviceWorker.register('sw.js').then(reg=>{
-          console.log('SW registrado');
-        }).catch(e=>console.log('SW erro:',e));
-      }
-    }
-  });
+  if('Notification'in window){Notification.requestPermission().then(p=>{
+    if(p==='granted'){const btn=document.getElementById('notif-btn');btn.textContent='🔔 Lembretes ativados!';btn.style.background='#e8f8e8';btn.style.borderColor='#5a9a5a';btn.style.color='#3a6a3a'}
+  })}
 }
-
-// Init
-window.addEventListener('load',()=>{
-  if('serviceWorker' in navigator && localStorage.getItem('cad_notif')==='true'){
-    navigator.serviceWorker.register('sw.js');
-  }
-  if(name1 && name2 && startDate){
-    showApp();
-  } else if(name1 && name2){
-    document.getElementById('name1').value=name1;
-    document.getElementById('name2').value=name2;
-  }
-  if(localStorage.getItem('cad_notif')==='true'){
-    const btn=document.getElementById('notif-btn');
-    if(btn){btn.textContent='Lembretes ativados!';btn.style.background='#e8f5e9';btn.style.borderColor='#4caf50';btn.style.color='#2d6a35';}
-  }
-});
+if(name1&&name2&&startDate){document.getElementById('name1').value=name1;document.getElementById('name2').value=name2;showApp()}
 </script>
 </body>
 </html>
