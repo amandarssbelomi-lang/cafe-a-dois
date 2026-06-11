@@ -1,150 +1,348 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café a Dois - Página de Vendas</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Segoe UI',sans-serif;background:#fff;color:#333}
-    .hero{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;text-align:center;padding:60px 20px}
-    .hero h1{font-size:2.8rem;font-weight:800;line-height:1.2;margin-bottom:16px}
-    .hero p{font-size:1.2rem;opacity:.9;max-width:600px;margin:0 auto 30px}
-    .hero .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:30px;padding:8px 24px;font-size:.9rem;margin-bottom:20px}
-    .book-img{font-size:100px;margin-bottom:20px}
-    .btn-primary{display:inline-block;background:white;color:#7b3f00;padding:16px 40px;border-radius:50px;font-size:1.2rem;font-weight:800;text-decoration:none;margin-top:10px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
-    .section{padding:60px 20px;max-width:800px;margin:0 auto}
-    .section h2{font-size:2rem;color:#7b3f00;margin-bottom:20px;text-align:center}
-    .section p{font-size:1.05rem;line-height:1.8;color:#555;margin-bottom:16px;text-align:center}
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:30px}
-    .feature-card{background:#fdf6ee;border-radius:16px;padding:24px;text-align:center;border:2px solid #f0d8b8}
-    .feature-card .icon{font-size:40px;margin-bottom:12px}
-    .feature-card h3{color:#7b3f00;font-size:1.1rem;margin-bottom:8px}
-    .feature-card p{font-size:.9rem;color:#666;line-height:1.5}
-    .days-preview{background:#fdf6ee;padding:40px 20px}
-    .days-preview h2{text-align:center;font-size:1.8rem;color:#7b3f00;margin-bottom:30px}
-    .day-list{max-width:700px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-    .day-item{background:white;border-radius:12px;padding:14px 18px;border-left:4px solid #c47c32;display:flex;align-items:center;gap:12px}
-    .day-num{background:#7b3f00;color:white;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
-    .day-title{font-size:.9rem;color:#3a2e1e;font-weight:600}
-    .testimonials{padding:60px 20px;background:white}
-    .testimonials h2{text-align:center;font-size:1.8rem;color:#7b3f00;margin-bottom:30px}
-    .testimonial-grid{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-    .testimonial{background:#fdf6ee;border-radius:16px;padding:20px;border:1px solid #f0d8b8}
-    .testimonial .stars{color:#f0a500;font-size:1.2rem;margin-bottom:8px}
-    .testimonial p{font-size:.9rem;color:#555;line-height:1.6;font-style:italic;margin-bottom:12px}
-    .testimonial .author{font-size:.85rem;color:#7b3f00;font-weight:700}
-    .cta-section{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;text-align:center;padding:60px 20px}
-    .cta-section h2{font-size:2.2rem;margin-bottom:16px}
-    .cta-section p{font-size:1.1rem;opacity:.9;max-width:500px;margin:0 auto 30px}
-    .price-box{display:inline-block;background:rgba(255,255,255,.15);border-radius:20px;padding:20px 40px;margin-bottom:24px}
-    .price-box .price{font-size:3rem;font-weight:800;line-height:1}
-    .price-box .period{font-size:.9rem;opacity:.8}
-    .amazon-badge{background:rgba(255,255,255,.1);border-radius:12px;padding:12px 20px;display:inline-block;margin:10px;font-size:.9rem}
-    .buy-btn{display:inline-block;background:white;color:#7b3f00;padding:18px 50px;border-radius:50px;font-size:1.3rem;font-weight:800;text-decoration:none;box-shadow:0 8px 30px rgba(0,0,0,.2)}
-    .buy-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
-    .amazon-logo{display:inline-block;background:rgba(255,255,255,.15);border-radius:12px;padding:10px 24px;margin-top:20px;font-size:.95rem;font-weight:600;letter-spacing:.5px}
-    .guarantee{margin-top:20px;font-size:.9rem;opacity:.8}
-    .app-badge{background:rgba(255,255,255,.1);border-radius:12px;padding:12px 20px;display:inline-block;margin:10px;font-size:.9rem}
-    footer{background:#3a2e1e;color:#c0a888;text-align:center;padding:30px 20px;font-size:.9rem}
-    @media(max-width:600px){.hero h1{font-size:2rem}.price-box .price{font-size:2.2rem}}
-    </style>
-  </head>
-  <body>
-    <div class="hero">
-      <div class="book-img">☕</div>div>
-      <div class="badge">✅ DISPONÍVEL NA AMAZON KINDLE</div>div>
-      <h1>Café a Dois</h1>
-    <p>40 dias de devocionais e desafios práticos para casais que desejam um amor mais profundo, real e transformador.</p>
-    <a href="https://www.amazon.com.br/dp/B0GXQJGMPP" target="_blank" class="btn-primary">COMPRAR NA AMAZON — R$ 14,90</a>a>
-    </div>div>
-  
-  <div class="section">
-  <h2>Para casais que escolhem o amor todos os dias</h2>
-  <p>Todo casal começa com uma chama. Mas o dia a dia pode fazer essa chama diminuir. <strong>Café a Dois</strong> é um devocional prático criado especialmente para casais que desejam fortalecer o amor, aprofundar a conexão e colocar Deus no centro do relacionamento.</p>
-  <div class="features">
-  <div class="feature-card">
-  <div class="icon">📖</div>div>
-  <h3>Versículo Bíblico</h3>
-  <p>Cada dia começa com uma Palavra aplicada diretamente ao casamento.</p>
-  </div>div>
-  <div class="feature-card">
-  <div class="icon">💬</div>div>
-  <h3>Reflexão Direta</h3>
-  <p>Textos diretos, sem rodeios, para casais reais que trabalham e se cansam.</p>
-  </div>div>
-  <div class="feature-card">
-  <div class="icon">🎯</div>div>
-  <h3>Desafio Prático</h3>
-  <p>Uma ação concreta para fazer juntos e fortalecer a cumplicidade.</p>
-  </div>div>
-  <div class="feature-card">
-  <div class="icon">🙏</div>div>
-  <h3>Oração em Casal</h3>
-  <p>Uma oração para orarem juntos e colocar Deus no centro do lar.</p>
-  </div>div>
-  </div>div>
-  </div>div>
-  
-  <div class="days-preview">
-  <h2>40 Temas que vão transformar o seu casamento</h2>
-  <div class="day-list">
-  <div class="day-item"><div class="day-num">1</div>div><div class="day-title">O Amor que Escolhe</div>div></div>div>
-  <div class="day-item"><div class="day-num">2</div>div><div class="day-title">Comunicação de Verdade</div>div></div>div>
-  <div class="day-item"><div class="day-num">3</div>div><div class="day-title">O Peso do Perdão</div>div></div>div>
-  <div class="day-item"><div class="day-num">4</div>div><div class="day-title">Intimidade e Conexão</div>div></div>div>
-  <div class="day-item"><div class="day-num">5</div>div><div class="day-title">Finanças a Dois</div>div></div>div>
-  <div class="day-item"><div class="day-num">6</div>div><div class="day-title">Sonhos Compartilhados</div>div></div>div>
-  <div class="day-item"><div class="day-num">7</div>div><div class="day-title">Fé que Une</div>div></div>div>
-  <div class="day-item"><div class="day-num">8</div>div><div class="day-title">Paciência no Dia a Dia</div>div></div>div>
-  <div class="day-item"><div class="day-num">9</div>div><div class="day-title">Cumplicidade Real</div>div></div>div>
-  <div class="day-item"><div class="day-num">10</div>div><div class="day-title">Legado de Amor</div>div></div>div>
-  </div>div>
-  </div>div>
-  
-  <div class="testimonials">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Café a Dois — 40 dias de devocionais e desafios práticos para casais que desejam um amor mais profundo, real e transformador.">
+<meta property="og:title" content="Café a Dois — 40 Dias para um Amor que Transforma">
+<meta property="og:description" content="Um devocional prático de 40 dias criado para casais que desejam fortalecer o amor e colocar Deus no centro do relacionamento.">
+<title>Café a Dois — 40 Dias para um Amor que Transforma</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',sans-serif;background:#fff;color:#333;line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;background:rgba(123,63,0,.95);backdrop-filter:blur(10px);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.2)}
+.nav-logo{color:white;font-weight:800;font-size:1.1rem;text-decoration:none}
+.nav-cta{background:white;color:#7b3f00;padding:8px 20px;border-radius:30px;font-size:.85rem;font-weight:800;text-decoration:none;transition:transform .2s}
+.nav-cta:hover{transform:translateY(-1px)}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#5c2d00 0%,#7b3f00 40%,#c47c32 100%);color:white;text-align:center;padding:120px 20px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(255,200,100,.1) 0%,transparent 60%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:8px 20px;font-size:.85rem;font-weight:600;margin-bottom:28px;backdrop-filter:blur(5px)}
+.hero-badge .dot{width:8px;height:8px;background:#4ade80;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.2)}}
+.hero-icon{font-size:80px;margin-bottom:20px;display:block;filter:drop-shadow(0 8px 20px rgba(0,0,0,.3))}
+.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 span{display:block;font-size:clamp(1.1rem,2.5vw,1.4rem);font-weight:400;opacity:.85;margin-top:8px;letter-spacing:0}
+.hero-desc{font-size:1.15rem;opacity:.9;max-width:560px;margin:0 auto 36px;line-height:1.7}
+.hero-price-area{margin-bottom:32px}
+.hero-price-label{font-size:.9rem;opacity:.75;margin-bottom:6px}
+.hero-price{font-size:3rem;font-weight:900;line-height:1}
+.hero-price sup{font-size:1.2rem;vertical-align:top;margin-top:8px;font-weight:600}
+.hero-price-note{font-size:.85rem;opacity:.75;margin-top:4px}
+.btn-hero{display:inline-block;background:#fff;color:#7b3f00;padding:18px 48px;border-radius:50px;font-size:1.2rem;font-weight:900;text-decoration:none;box-shadow:0 8px 40px rgba(0,0,0,.25);transition:all .3s;letter-spacing:.3px}
+.btn-hero:hover{transform:translateY(-3px);box-shadow:0 14px 50px rgba(0,0,0,.35)}
+.hero-sub{margin-top:16px;font-size:.85rem;opacity:.7}
+.hero-social-proof{display:flex;justify-content:center;gap:30px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,.15);flex-wrap:wrap}
+.sp-item{text-align:center}
+.sp-num{font-size:1.6rem;font-weight:900;display:block}
+.sp-label{font-size:.78rem;opacity:.75}
+
+/* PROBLEM */
+.problem{background:#fdf6ee;padding:70px 20px;text-align:center}
+.problem h2{font-size:1.8rem;font-weight:800;color:#3a2e1e;margin-bottom:16px;max-width:600px;margin-left:auto;margin-right:auto}
+.problem p{color:#6b5744;font-size:1.05rem;max-width:540px;margin:0 auto 32px;line-height:1.8}
+.problem-cards{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;max-width:700px;margin:0 auto}
+.problem-card{background:white;border:1px solid #f0d8b8;border-radius:14px;padding:18px 22px;font-size:.92rem;color:#5a3a1a;line-height:1.5;flex:1;min-width:180px;max-width:200px}
+.problem-card .icon{font-size:24px;margin-bottom:8px;display:block}
+
+/* SOLUTION */
+.solution{padding:70px 20px;text-align:center;background:white}
+.section-label{display:inline-block;background:#fff3e0;color:#7b3f00;font-size:.75rem;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:1px;margin-bottom:16px;text-transform:uppercase}
+.solution h2{font-size:2rem;font-weight:800;color:#3a2e1e;margin-bottom:16px;max-width:600px;margin-left:auto;margin-right:auto}
+.solution p{color:#6b5744;font-size:1.05rem;max-width:560px;margin:0 auto 40px;line-height:1.8}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:860px;margin:0 auto}
+.feature-card{background:#fdf6ee;border-radius:20px;padding:28px;text-align:left;border:1px solid #f0d8b8;transition:transform .2s,box-shadow .2s}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(123,63,0,.1)}
+.feature-icon{font-size:36px;margin-bottom:14px;display:block}
+.feature-card h3{color:#7b3f00;font-size:1rem;font-weight:800;margin-bottom:8px}
+.feature-card p{font-size:.88rem;color:#6b5744;line-height:1.6}
+
+/* ABOUT AUTHOR */
+.author{background:linear-gradient(135deg,#fdf6ee,#fff8f0);padding:60px 20px}
+.author-inner{max-width:680px;margin:0 auto;display:flex;gap:30px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:left}
+.author-avatar{font-size:80px;flex-shrink:0}
+.author-text h3{color:#7b3f00;font-size:1.2rem;font-weight:800;margin-bottom:8px}
+.author-text p{color:#5a3a1a;font-size:.95rem;line-height:1.7}
+.author-name{font-size:.85rem;color:#a07040;margin-top:12px;font-weight:600}
+
+/* DAYS PREVIEW */
+.days-section{background:#fdf6ee;padding:70px 20px}
+.days-section h2{font-size:1.9rem;font-weight:800;color:#3a2e1e;text-align:center;margin-bottom:8px}
+.days-section .sub{text-align:center;color:#8b6b4a;font-size:.95rem;margin-bottom:36px}
+.days-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;max-width:780px;margin:0 auto 30px}
+.day-item{background:white;border-radius:12px;padding:13px 16px;border-left:4px solid #c47c32;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.day-num{background:linear-gradient(135deg,#7b3f00,#c47c32);color:white;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex-shrink:0}
+.day-title{font-size:.9rem;color:#3a2e1e;font-weight:600}
+.days-more{text-align:center;color:#8b6b4a;font-size:.9rem;font-style:italic}
+
+/* BONUS */
+.bonus{background:linear-gradient(135deg,#3a2e1e,#5a3a1a);color:white;padding:60px 20px;text-align:center}
+.bonus-badge{display:inline-block;background:rgba(255,200,50,.2);border:1px solid rgba(255,200,50,.4);color:#ffd700;font-size:.78rem;font-weight:800;padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase}
+.bonus h2{font-size:1.8rem;font-weight:800;margin-bottom:12px}
+.bonus p{opacity:.85;max-width:500px;margin:0 auto 30px;line-height:1.7}
+.bonus-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:24px;max-width:420px;margin:0 auto;display:flex;align-items:center;gap:16px;text-align:left}
+.bonus-icon{font-size:48px;flex-shrink:0}
+.bonus-text h4{font-size:1rem;font-weight:800;margin-bottom:6px}
+.bonus-text p{font-size:.88rem;opacity:.8;line-height:1.5}
+
+/* TESTIMONIALS */
+.testimonials{padding:70px 20px;background:white}
+.testimonials h2{font-size:1.9rem;font-weight:800;color:#3a2e1e;text-align:center;margin-bottom:36px}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:860px;margin:0 auto}
+.testi-card{background:#fdf6ee;border-radius:20px;padding:24px;border:1px solid #f0d8b8;position:relative}
+.testi-card::before{content:'"';position:absolute;top:12px;right:18px;font-size:3.5rem;color:#e8c9a0;font-family:Georgia,serif;line-height:1}
+.testi-stars{color:#f0a500;font-size:1.1rem;margin-bottom:10px}
+.testi-card p{font-size:.9rem;color:#5a3a1a;line-height:1.65;margin-bottom:14px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7b3f00,#c47c32);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:.85rem;flex-shrink:0}
+.testi-name{font-size:.82rem;font-weight:700;color:#7b3f00}
+.testi-role{font-size:.75rem;color:#9a7a5a}
+
+/* CTA FINAL */
+.cta-final{background:linear-gradient(160deg,#5c2d00,#7b3f00 50%,#9a5010);color:white;padding:80px 20px;text-align:center;position:relative;overflow:hidden}
+.cta-final::before{content:'☕';position:absolute;font-size:300px;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-final h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:12px;position:relative}
+.cta-final .sub{font-size:1.05rem;opacity:.85;max-width:500px;margin:0 auto 36px;line-height:1.7;position:relative}
+.cta-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:32px 40px;max-width:480px;margin:0 auto 28px;position:relative;backdrop-filter:blur(5px)}
+.cta-book-title{font-size:1.1rem;font-weight:700;margin-bottom:4px}
+.cta-book-format{font-size:.82rem;opacity:.7;margin-bottom:20px}
+.cta-price-old{font-size:.9rem;text-decoration:line-through;opacity:.6;margin-bottom:2px}
+.cta-price{font-size:3.2rem;font-weight:900;line-height:1;margin-bottom:4px}
+.cta-price-note{font-size:.82rem;opacity:.75;margin-bottom:24px}
+.btn-cta{display:block;background:white;color:#7b3f00;padding:18px 32px;border-radius:50px;font-size:1.15rem;font-weight:900;text-decoration:none;box-shadow:0 8px 30px rgba(0,0,0,.25);transition:all .3s;margin-bottom:12px}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.btn-cta-secondary{display:block;background:transparent;border:1px solid rgba(255,255,255,.4);color:white;padding:13px 32px;border-radius:50px;font-size:.9rem;font-weight:700;text-decoration:none;transition:all .2s}
+.btn-cta-secondary:hover{background:rgba(255,255,255,.1)}
+.cta-guarantee{margin-top:20px;font-size:.85rem;opacity:.7;position:relative}
+.cta-guarantee span{margin:0 8px}
+
+/* FAQ */
+.faq{padding:60px 20px;background:#fdf6ee}
+.faq h2{font-size:1.7rem;font-weight:800;color:#3a2e1e;text-align:center;margin-bottom:32px}
+.faq-list{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:white;border-radius:14px;border:1px solid #f0d8b8;overflow:hidden}
+.faq-q{padding:16px 20px;font-weight:700;color:#5a3a1a;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'＋';color:#c47c32;font-size:1.1rem;flex-shrink:0}
+.faq-a{padding:0 20px 16px;font-size:.9rem;color:#6b5744;line-height:1.65}
+
+/* FOOTER */
+footer{background:#2a1e10;color:#c0a070;text-align:center;padding:36px 20px}
+footer .logo{font-size:1.2rem;font-weight:800;color:white;margin-bottom:8px}
+footer p{font-size:.85rem;opacity:.7;margin-bottom:6px}
+footer a{color:#c47c32;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .hero{padding:100px 20px 60px}
+  .hero h1{font-size:2rem}
+  .hero-price{font-size:2.2rem}
+  .btn-hero{padding:15px 32px;font-size:1rem}
+  .author-inner{flex-direction:column;text-align:center}
+  .cta-box{padding:24px 20px}
+  .cta-price{font-size:2.5rem}
+  .hero-social-proof{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">☕ Café a Dois</a>
+  <a href="#comprar" class="nav-cta">Comprar — R$ 14,90</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Disponível agora na Amazon Kindle
+  </div>
+  <span class="hero-icon">☕</span>
+  <h1>Café a Dois
+    <span>40 Dias para um Amor que Transforma</span>
+  </h1>
+  <p class="hero-desc">Um devocional prático criado para casais reais — que trabalham, têm filhos, se cansam e ainda assim escolhem o amor todos os dias.</p>
+  <div class="hero-price-area">
+    <div class="hero-price-label">eBook Kindle · Disponível instantaneamente</div>
+    <div class="hero-price"><sup>R$</sup> 14<span style="font-size:1.8rem">,90</span></div>
+  </div>
+  <a href="https://www.amazon.com.br/dp/B0GXQJGMPP" target="_blank" class="btn-hero">🛒 Comprar na Amazon agora</a>
+  <div class="hero-sub">✅ Bônus: acesso gratuito ao App Café a Dois</div>
+  <div class="hero-social-proof">
+    <div class="sp-item"><span class="sp-num">40</span><span class="sp-label">Dias de desafio</span></div>
+    <div class="sp-item"><span class="sp-num">4</span><span class="sp-label">Elementos por dia</span></div>
+    <div class="sp-item"><span class="sp-num">∞</span><span class="sp-label">Impacto no casamento</span></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <h2>Você e seu amor merecem mais do que a correria permite</h2>
+  <p>O dia a dia engole o casal. Acordar, trabalhar, cuidar dos filhos, dormir. E o relacionamento vai ficando para depois — até que o "depois" nunca chega.</p>
+  <div class="problem-cards">
+    <div class="problem-card"><span class="icon">💬</span>Conversas só sobre obrigações e tarefas</div>
+    <div class="problem-card"><span class="icon">💤</span>Distância emocional crescendo aos poucos</div>
+    <div class="problem-card"><span class="icon">🙏</span>Fé que não é mais vivida em casal</div>
+    <div class="problem-card"><span class="icon">❤️‍🔥</span>Chama do início que foi diminuindo</div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution">
+  <span class="section-label">A solução</span>
+  <h2>40 dias. Um ritual simples. Resultados reais.</h2>
+  <p>Café a Dois é um devocional prático que você lê juntos — em 10 a 15 minutos por dia — para fortalecer o amor, a comunicação e a fé no seu casamento.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">📖</span>
+      <h3>Versículo Bíblico</h3>
+      <p>Cada dia começa com uma Palavra aplicada diretamente ao casamento, trazendo fundamento espiritual para a jornada.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💬</span>
+      <h3>Reflexão Direta</h3>
+      <p>Textos curtos, diretos e sem enrolação — feitos para casais reais que trabalham, têm filhos e pouco tempo.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎯</span>
+      <h3>Desafio Prático</h3>
+      <p>Uma ação concreta para fazerem juntos no mesmo dia — pequenas atitudes que constroem cumplicidade real.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🙏</span>
+      <h3>Oração em Casal</h3>
+      <p>Uma oração para encerrarem o dia juntos, colocando Deus no centro do relacionamento e do lar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author">
+  <div class="author-inner">
+    <div class="author-avatar">✍️</div>
+    <div class="author-text">
+      <h3>Escrito por Amanda Belomi</h3>
+      <p>Inspirado nos clássicos <em>Café com Deus Pai</em> e <em>O Desafio de Amar</em>, este livro foi escrito para casais reais — que acreditam que um casamento bonito não é o que nunca tem problemas, mas o que escolhe crescer juntos todos os dias.</p>
+      <p class="author-name">Amanda Belomi · Autora · 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- DAYS PREVIEW -->
+<section class="days-section">
+  <h2>Uma prévia dos 40 temas</h2>
+  <p class="sub">Cada tema foi escolhido para tocar o que mais importa no casamento</p>
+  <div class="days-grid">
+    <div class="day-item"><div class="day-num">1</div><div class="day-title">O Amor que Escolhe</div></div>
+    <div class="day-item"><div class="day-num">2</div><div class="day-title">Comunicação de Verdade</div></div>
+    <div class="day-item"><div class="day-num">3</div><div class="day-title">O Peso do Perdão</div></div>
+    <div class="day-item"><div class="day-num">4</div><div class="day-title">Intimidade e Conexão</div></div>
+    <div class="day-item"><div class="day-num">5</div><div class="day-title">Finanças a Dois</div></div>
+    <div class="day-item"><div class="day-num">6</div><div class="day-title">Sonhos Compartilhados</div></div>
+    <div class="day-item"><div class="day-num">7</div><div class="day-title">Fé que Une</div></div>
+    <div class="day-item"><div class="day-num">8</div><div class="day-title">Paciência no Dia a Dia</div></div>
+    <div class="day-item"><div class="day-num">9</div><div class="day-title">Cumplicidade Real</div></div>
+    <div class="day-item"><div class="day-num">10</div><div class="day-title">Legado de Amor</div></div>
+    <div class="day-item"><div class="day-num">11</div><div class="day-title">Gratidão pelo Outro</div></div>
+    <div class="day-item"><div class="day-num">12</div><div class="day-title">Quando Tudo Pesa</div></div>
+  </div>
+  <p class="days-more">+ 28 dias mais para completar a jornada dos 40 dias</p>
+</section>
+
+<!-- BONUS -->
+<section class="bonus">
+  <div class="bonus-badge">🎁 Bônus exclusivo</div>
+  <h2>App Café a Dois — incluso no livro</h2>
+  <p>Com a compra do eBook, você recebe acesso gratuito ao App Café a Dois: os 40 desafios, progresso diário e lembretes para manter a consistência.</p>
+  <div class="bonus-card">
+    <div class="bonus-icon">📱</div>
+    <div class="bonus-text">
+      <h4>App Café a Dois</h4>
+      <p>Acompanhe os 40 dias pelo celular. Disponível como web app, sem precisar instalar nada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
   <h2>O que dizem os leitores</h2>
-  <div class="testimonial-grid">
-  <div class="testimonial">
-  <div class="stars">★★★★★</div>div>
-  <p>"Lemos juntos todo dia no café da manhã. Transformou nossa comunicação de um jeito que não esperávamos."</p>
-  <div class="author">— Ana e Pedro, 8 anos de casamento</div>div>
-  </div>div>
-  <div class="testimonial">
-  <div class="stars">★★★★★</div>div>
-  <p>"Simples, prático e profundo ao mesmo tempo. Cada dia nos desafiou a ser melhores um para o outro."</p>
-  <div class="author">— Carla e Marcos</div>div>
-  </div>div>
-  <div class="testimonial">
-  <div class="stars">★★★★★</div>div>
-  <p>"Os 40 dias passaram rápido demais! Já queremos recomeçar. O app com os desafios é incrível."</p>
-  <div class="author">— Juliana e Felipe</div>div>
-  </div>div>
-  </div>div>
-  </div>div>
-  
-  <div id="comprar" class="cta-section">
-  <h2>Comece hoje mesmo</h2>
-  <p>Disponível como eBook Kindle na Amazon. Leia em qualquer dispositivo — celular, tablet ou computador.</p>
-  <div class="price-box">
-  <div class="price">R$ 14,90</div>div>
-  <div class="period">eBook Kindle · Disponível instantaneamente</div>div>
-  </div>div>
-  <br>
-  <a href="https://www.amazon.com.br/dp/B0GXQJGMPP" target="_blank" class="buy-btn">🛒 COMPRAR NA AMAZON</a>a>
-  <br>
-  <div class="amazon-logo">📚 Disponível na Amazon Kindle</div>div>
-  <p class="guarantee">✅ Bônus exclusivo: Acesso gratuito ao App Café a Dois com os 40 desafios e progresso diário</p>
-  </div>div>
-  
-  <footer>
-    <p>☕ Café a Dois · por Amanda Belomi · 2026</p>
-  <p style="margin-top:8px"><a href="index.html" style="color:#c47c32;text-decoration:none">Acessar o App →</a>a></p>
-  </footer>
-  </body>
-</html>html></p>
-  </footer></strong></p></p></h1>
-  </body>
-  </style></title>
-  </head>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>Lemos juntos todo dia no café da manhã. Transformou nossa comunicação de um jeito que não esperávamos. Simples e profundo ao mesmo tempo.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AP</div>
+        <div><div class="testi-name">Ana e Pedro</div><div class="testi-role">8 anos de casamento</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>Cada dia nos desafiou a ser melhores um para o outro. A oração em casal foi o que mais nos impactou — era uma coisa que precisávamos retomar.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">CM</div>
+        <div><div class="testi-name">Carla e Marcos</div><div class="testi-role">Casal em crescimento</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>Os 40 dias passaram rápido demais! Os desafios práticos são incríveis — pequenas coisas que mudaram muito a dinâmica entre nós.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">JF</div>
+        <div><div class="testi-name">Juliana e Felipe</div><div class="testi-role">Noivos</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="comprar" class="cta-final">
+  <h2>Comece os 40 dias hoje mesmo</h2>
+  <p class="sub">Disponível como eBook Kindle. Leia em qualquer celular, tablet ou computador — sem precisar de Kindle físico.</p>
+  <div class="cta-box">
+    <div class="cta-book-title">☕ Café a Dois</div>
+    <div class="cta-book-format">eBook Kindle · por Amanda Belomi</div>
+    <div class="cta-price"><sup style="font-size:1.2rem;vertical-align:top;margin-top:10px">R$</sup>14<span style="font-size:1.8rem">,90</span></div>
+    <div class="cta-price-note">Disponível instantaneamente após a compra</div>
+    <a href="https://www.amazon.com.br/dp/B0GXQJGMPP" target="_blank" class="btn-cta">🛒 Comprar na Amazon agora</a>
+    <a href="https://amandarssbelomi-lang.github.io/cafe-a-dois/" target="_blank" class="btn-cta-secondary">📱 Acessar o App gratuito</a>
+  </div>
+  <p class="cta-guarantee">✅ Compra segura pela Amazon<span>·</span>📱 Leia em qualquer dispositivo<span>·</span>⚡ Acesso imediato</p>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Perguntas frequentes</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">Preciso ter um Kindle para ler?</div>
+      <div class="faq-a">Não! Você pode ler pelo aplicativo gratuito Kindle no celular, tablet ou computador — disponível para Android, iPhone, iPad e PC.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Quanto tempo leva por dia?</div>
+      <div class="faq-a">Entre 10 e 15 minutos por dia — perfeito para fazer juntos no café da manhã ou antes de dormir.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Precisa ser um casal cristão?</div>
+      <div class="faq-a">O livro é escrito da perspectiva cristã, com versículos bíblicos e orações. Mas qualquer casal que queira aprofundar o relacionamento vai se beneficiar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">O app é mesmo gratuito?</div>
+      <div class="faq-a">Sim! O App Café a Dois é um bônus incluso — você acessa pelo link no livro e usa direto pelo celular, sem instalar nada.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">☕ Café a Dois</div>
+  <p>por Amanda Belomi · 2026</p>
+  <p><a href="https://www.amazon.com.br/dp/B0GXQJGMPP" target="_blank">Comprar na Amazon</a> · <a href="https://amandarssbelomi-lang.github.io/cafe-a-dois/">Acessar o App</a></p>
+</footer>
+
+</body>
+</html>
